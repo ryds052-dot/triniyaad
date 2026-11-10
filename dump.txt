@@ -1,0 +1,1774 @@
+﻿
+===== package.json =====
+{
+  "name": "trini-yaad-kingston",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@tailwindcss/vite": "^4.1.7",
+    "gsap": "^3.13.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-responsive": "^10.0.1",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.25.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
+    "eslint": "^9.25.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "sharp": "^0.35.5",
+    "vite": "^6.3.5"
+  }
+}
+
+
+===== vite.config.js =====
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  build: {
+    cssCodeSplit: true,
+    modulePreload: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-dom/client'],
+          gsap: ['gsap', 'gsap/ScrollTrigger', '@gsap/react'],
+        },
+      },
+    },
+  },
+})
+
+
+===== vercel.json =====
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/hero-vibe.mp4",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type", "value": "video/mp4" }
+      ]
+    }
+  ]
+}
+
+
+===== index.html =====
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap&text=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789%26%E2%80%A2%E2%86%97%20-.,'">
+    <link rel="icon" href="/favicon.ico?v=11" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png?v=11" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=11" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=11" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070706" />
+    <meta property="og:title" content="Trini-Yaad | Trinidadian Street Food & BBQ at Dubwise Cafe â€” Kingston" />
+    <meta property="og:description" content="Authentic Trinidadian doubles, roti, daily specials and weekend BBQ at Dubwise Cafe, Kingston 6." />
+    <meta property="og:image" content="/images/photo-2.webp" />
+    <meta property="og:type" content="website" />
+    <title>Trini-Yaad | Trinidadian Street Food & BBQ at Dubwise Cafe â€” Kingston</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+===== .gitignore =====
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vercel
+
+
+===== src\main.jsx =====
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+
+===== src\App.jsx =====
+import Navbar from './components/Navbar.jsx';
+import Hero from './components/Hero.jsx';
+import { lazy, Suspense, useEffect } from 'react';
+
+const MenuSection = lazy(() => import('./components/MenuSection.jsx'));
+const GuestLove = lazy(() => import('./components/GuestLove.jsx'));
+const CourtyardVibe = lazy(() => import('./components/CourtyardVibe.jsx'));
+const VisitUs = lazy(() => import('./components/VisitUs.jsx'));
+const Footer = lazy(() => import('./components/Footer.jsx'));
+
+const BelowFoldFallback = () => <div aria-hidden="true" style={{ minHeight: '420px' }} />;
+
+const App = () => {
+ useEffect(() => {
+  if (window.location.hash) {
+   window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
+ }, []);
+ return (
+	<main>
+   <div className="grain-overlay" aria-hidden="true" />
+   <div className="court-yard-glow glow-amber" aria-hidden="true" />
+   <div className="court-yard-glow glow-red" aria-hidden="true" />
+   <div className="court-yard-glow glow-green" aria-hidden="true" />
+	 <Navbar />
+	 <Hero />
+   <Suspense fallback={<BelowFoldFallback />}><MenuSection /></Suspense>
+   <Suspense fallback={<BelowFoldFallback />}><GuestLove /></Suspense>
+   <Suspense fallback={<BelowFoldFallback />}><CourtyardVibe /></Suspense>
+   <Suspense fallback={<BelowFoldFallback />}><VisitUs /></Suspense>
+   <Suspense fallback={<div aria-hidden="true" style={{ minHeight: '430px' }} />}><Footer /></Suspense>
+	</main>
+ )
+}
+
+export default App
+
+
+===== src\index.css =====
+:root {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: #f8f6f1;
+  background: #070706;
+  font-synthesis: none;
+  --red: #e11d48;
+  --gold: #facc15;
+  --green: #16a34a;
+  --obsidian: #070706;
+  --charcoal: #121110;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--obsidian); }
+body { margin: 0; min-width: 320px; overflow-x: hidden; background: var(--obsidian); }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 20; pointer-events: none; opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+button, a, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+img { display: block; max-width: 100%; }
+.site-nav {
+  position: absolute; z-index: 30; top: 0; left: 0; width: 100%; height: 92px; padding: 0 5vw;
+  display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.09);
+}
+.brand { display: flex; align-items: center; color: white; text-decoration: none; transition: opacity .2s ease; }
+.brand:hover { opacity: .9; }
+.navbar-logo { height: 40px; width: auto; object-fit: contain; mix-blend-mode: lighten; }
+.nav-links { display: flex; align-items: center; gap: clamp(18px, 2.5vw, 38px); }
+.nav-links a { color: rgba(255,255,255,.76); text-decoration: none; font-size: 13px; font-weight: 700; transition: color .2s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-links .nav-order { color: #090908; background: var(--gold); padding: 13px 18px; border-radius: 999px; }
+.menu-toggle { display: none; }
+.hero {
+  position: relative; min-height: 790px; height: min(900px, 100svh); overflow: hidden; isolation: isolate;
+  background: radial-gradient(circle at 78% 48%, rgba(225,29,72,.12), transparent 26%), #070706;
+}
+.hero-grid { height: 100%; display: grid; grid-template-columns: 54% 46%; padding: 92px 5vw 70px; }
+.hero-copy-column { align-self: center; z-index: 2; }
+.hero-kicker { display: flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: .22em; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.62); }
+.hero-kicker span { width: 42px; height: 2px; background: var(--gold); }
+.hero-title { margin: 24px 0 22px; font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(78px, 10vw, 155px); line-height: .72; letter-spacing: -.075em; }
+.hero-title .line { display: block; }
+.hero-title .gold { color: var(--gold); margin-left: clamp(28px, 5vw, 90px); }
+.hero-copy { max-width: 440px; margin-left: 6px; color: rgba(255,255,255,.68); line-height: 1.75; font-size: 15px; }
+.hero-actions { margin-top: 32px; display: flex; gap: 12px; }
+.button { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 22px; border-radius: 999px; padding: 0 22px; text-decoration: none; font-size: 13px; font-weight: 800; border: 1px solid transparent; }
+.button-primary { background: #F5B800; color: #0A0A0A; box-shadow: none; }
+.button-primary:hover { background: #FFC928; box-shadow: 0 10px 30px rgba(245,184,0,.16); }
+.button-ghost {
+  color: #FAFAFA;
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.18);
+}
+.button-ghost:hover {
+  color: #FAFAFA;
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.28);
+}
+.hero-visual { position: relative; height: 100%; display: grid; place-items: center; }
+.hero-frame { position: relative; width: min(38vw, 520px); aspect-ratio: .76; border-radius: 220px 220px 24px 24px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,.55); border: 1px solid rgba(250,204,21,.16); }
+.hero-image { width: 100%; height: 112%; object-fit: cover; object-position: center; }
+.hero-orbit { position: absolute; z-index: 2; width: min(44vw, 590px); aspect-ratio: 1; border: 1px solid rgba(250,204,21,.12); border-radius: 50%; }
+.hero-orbit span { position: absolute; font-family: 'Syne'; font-size: 9px; letter-spacing: .35em; color: var(--gold); }
+.hero-orbit span:first-child { top: 8%; left: 12%; }.hero-orbit span:last-child { right: 7%; bottom: 22%; }
+.hero-ambient { position: absolute; width: 420px; height: 420px; border-radius: 50%; filter: blur(100px); opacity: .09; pointer-events: none; }
+.ambient-red { right: -160px; top: 20%; background: var(--red); }.ambient-green { left: 20%; bottom: -300px; background: var(--green); }
+.hero-marquee { position: absolute; bottom: 0; left: 0; width: 100%; height: 54px; border-top: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; overflow: hidden; color: rgba(255,255,255,.38); font-family: 'Syne'; font-size: 11px; letter-spacing: .22em; }
+.hero-marquee div { white-space: nowrap; min-width: 100%; text-align: center; }.hero-marquee span { color: var(--gold); margin: 0 24px; }
+.eyebrow { text-transform: uppercase; letter-spacing: .24em; font-size: 10px; font-weight: 800; color: var(--gold); }
+.menu-section { position: relative; padding: 120px 5vw; background: #0b0a09; }
+.section-heading h2, .spotlight-heading h2, .courtyard-heading h2 { font-family: 'Syne'; font-size: clamp(48px, 7vw, 100px); line-height: .92; letter-spacing: -.055em; margin: 18px 0 48px; }
+.section-heading h2 em, .spotlight-heading h2 em { color: var(--gold); font-style: normal; }
+.menu-toolbar { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid rgba(255,255,255,.1); margin-bottom: 20px; }
+.mobile-menu-food { display: none; }
+.menu-tabs { display: flex; gap: 0; }
+.menu-tabs button { min-width: 180px; border: 0; border-bottom: 2px solid transparent; color: rgba(255,255,255,.42); background: transparent; padding: 18px 18px 14px 0; text-align: left; cursor: pointer; }
+.menu-tabs button span { display: block; font-family: 'Syne'; font-size: 16px; }.menu-tabs button small { font-size: 9px; text-transform: uppercase; letter-spacing: .15em; }
+.menu-tabs button.active { border-color: var(--gold); color: white; }
+.board-button { border: 0; background: transparent; color: rgba(255,255,255,.65); padding: 12px 0; display: flex; gap: 9px; align-items: center; cursor: pointer; font-size: 12px; }
+.board-button svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.category-description { margin: 12px 0 24px; max-width: 760px; color: rgba(255,255,255,.58); font-size: 14px; line-height: 1.7; }
+.order-channels { border-top: 1px solid rgba(255,255,255,.09); margin-top: 24px; padding-top: 18px; display:grid; gap:12px; }
+.order-channels a { color: var(--gold); text-decoration:none; font-size:12px; }
+.order-channels p { margin:0; color:rgba(255,255,255,.48); font-size:12px; }
+.visit-order a { color:inherit; text-decoration:none; }
+.menu-grid { border-top: 1px solid rgba(255,255,255,.08); }
+.dish-card { min-height: 150px; display: grid; grid-template-columns: 70px 1fr 230px; align-items: center; border-bottom: 1px solid rgba(255,255,255,.08); transition: background .25s, padding .25s; }
+.dish-card:hover { background: rgba(255,255,255,.025); padding-left: 12px; }
+.dish-index { color: rgba(255,255,255,.25); font-size: 10px; }.dish-main { padding-right: 30px; }.dish-main h3 { font-family: 'Syne'; font-size: clamp(20px, 2vw, 28px); margin: 0 0 8px; }.dish-main p { margin: 0; max-width: 620px; color: rgba(255,255,255,.52); font-size: 13px; line-height: 1.7; }
+.pro-tip { margin-top: 10px; color: var(--gold); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }.pro-tip b { margin-right: 4px; }
+.dish-order { min-height: 100px; display: grid; grid-template-columns: 1fr auto; align-content: center; gap: 8px 10px; }
+.dish-order > strong { font-family: 'Syne'; font-size: 22px; }.dish-order strong small { font-family: 'Plus Jakarta Sans'; font-size: 8px; color: rgba(255,255,255,.45); }
+.dish-order select { grid-column: 1; height: 34px; border: 1px solid rgba(255,255,255,.12); border-radius: 4px; background: var(--charcoal); color: rgba(255,255,255,.75); font-size: 10px; padding: 0 8px; }
+.add-button { grid-row: 1 / span 2; grid-column: 2; align-self: center; width: 72px; height: 72px; border-radius: 50%; border: 1px solid rgba(250,204,21,.45); background: transparent; color: var(--gold); cursor: pointer; font-weight: 800; transition: transform .2s, background .2s, color .2s; }.add-button:hover { transform: scale(1.05); background: var(--gold); color: #090908; }
+.side-note { color: rgba(255,255,255,.48); font-size: 12px; }
+.cart-fab { position: fixed; right: 24px; bottom: 24px; z-index: 40; height: 54px; border: 0; border-radius: 999px; padding: 0 18px; background: var(--gold); color: #090908; display: flex; align-items: center; gap: 10px; font-weight: 800; box-shadow: 0 12px 40px rgba(0,0,0,.45); cursor: pointer; }.cart-fab svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; }.cart-fab span { width: 22px; height: 22px; display:grid; place-items:center; border-radius:50%; background:#090908; color:white; font-size:10px; }
+.drawer-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.72); backdrop-filter: blur(10px); }.order-drawer { position:absolute; right:0; top:0; height:100%; width:min(430px, 92vw); padding:30px; background:#11100f; border-left:1px solid rgba(255,255,255,.09); animation: drawerIn .35s ease-out; }
+@keyframes drawerIn { from { transform: translateX(100%); } }
+.drawer-head { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid rgba(255,255,255,.09); padding-bottom:20px; }.drawer-head p { color:var(--gold); text-transform:uppercase; letter-spacing:.18em; font-size:9px; }.drawer-head h3 { font-family:'Syne'; font-size:34px; margin:4px 0; }.drawer-head button, .modal-close { border:0; background:transparent; color:white; font-size:28px; cursor:pointer; }
+.empty-order { color:rgba(255,255,255,.48); margin-top:40px; }.order-list { margin-top:20px; }.order-item { display:flex; justify-content:space-between; gap:20px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.07); }.order-item b { display:block; font-size:13px; }.order-item small { display:block; margin-top:5px; color:rgba(255,255,255,.42); }.order-item strong { font-size:13px; white-space:nowrap; }.order-total { margin-top:24px; padding-top:18px; border-top:1px solid rgba(255,255,255,.09); display:flex; justify-content:space-between; align-items:center; }.order-total strong { font-family:'Syne'; font-size:24px; }.order-total small { font-family:'Plus Jakarta Sans'; font-size:8px; }
+.whatsapp-button { margin-top:26px; height:58px; border-radius:999px; background:#25d366; color:#071b10; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:30px; font-weight:800; }
+.menu-modal { position:fixed; inset:0; z-index:110; background:rgba(0,0,0,.92); display:grid; place-items:center; padding:50px; }.menu-modal img { max-height:88vh; max-width:92vw; object-fit:contain; }.modal-close { position:absolute; right:24px; top:20px; }
+.signature-section { padding:110px 5vw 130px; background:#070706; }.spotlight-heading h2 { max-width:900px; }.spotlight-card { height:560px; display:grid; grid-template-columns:58% 42%; border:1px solid rgba(255,255,255,.09); background:var(--charcoal); overflow:hidden; }.spotlight-image { overflow:hidden; }.spotlight-image img { width:100%; height:100%; object-fit:cover; }.spotlight-copy { position:relative; display:flex; flex-direction:column; justify-content:flex-end; padding:48px; }.spotlight-copy > span { position:absolute; right:40px; top:34px; color:rgba(255,255,255,.18); font-family:'Syne'; font-size:82px; }.spotlight-note { color:var(--gold); font-size:9px; letter-spacing:.14em; }.spotlight-copy h3 { font-family:'Syne'; font-size:clamp(38px,5vw,68px); line-height:.95; margin:10px 0 34px; }.text-link { color:white; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.18); padding-bottom:12px; display:flex; justify-content:space-between; }.text-link b { color:var(--gold); }.spotlight-nav { height:50px; display:flex; align-items:flex-end; gap:8px; }.spotlight-nav button { width:60px; height:4px; border:0; padding:0; background:rgba(255,255,255,.12); cursor:pointer; }.spotlight-nav button span { display:block; height:100%; width:0; background:var(--gold); }.spotlight-nav button.active span { width:100%; }
+.courtyard-section { min-height:950px; position:relative; padding:100px 5vw 0; background:#0b0a09; overflow:hidden; }.courtyard-heading { position:absolute; z-index:4; left:5vw; top:100px; }.courtyard-heading h2 { font-size:clamp(54px,8vw,116px); text-shadow:0 8px 30px rgba(0,0,0,.8); }.courtyard-frame { position:absolute; left:0; right:0; bottom:-1px; height:760px; transform:scale(.82); transform-origin:center bottom; clip-path:inset(4% 8%); border-radius:18px; overflow:hidden; }.courtyard-frame img { width:100%; height:100%; object-fit:cover; filter:saturate(.82) contrast(1.05); }.courtyard-frame::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,rgba(0,0,0,.62),transparent 60%),linear-gradient(0deg,rgba(0,0,0,.78),transparent 55%); }.courtyard-overlay { position:absolute; z-index:3; left:5vw; bottom:45px; }.courtyard-overlay span { color:var(--gold); letter-spacing:.18em; font-size:10px; }.courtyard-overlay h3 { font-family:'Syne'; font-size:clamp(50px,7vw,92px); line-height:.86; margin:12px 0; }
+.visit-section { min-height:680px; display:grid; grid-template-columns:58% 42%; background:#070706; }.visit-photo { min-height:680px; overflow:hidden; }.visit-photo img { width:100%; height:100%; object-fit:cover; }.visit-card { padding:80px 7vw; display:flex; flex-direction:column; justify-content:center; }.visit-card h2 { font-family:'Syne'; font-size:clamp(42px,5vw,72px); line-height:.92; letter-spacing:-.05em; margin:16px 0 14px; }.visit-address { color:rgba(255,255,255,.55); }.visit-order { margin:32px 0; padding:20px 0; border-top:1px solid rgba(255,255,255,.09); border-bottom:1px solid rgba(255,255,255,.09); }.visit-order p { margin:7px 0;color:rgba(255,255,255,.55); }.visit-card .button { align-self:flex-start; }
+.site-footer { min-height:430px; position:relative; padding:80px 5vw 40px; background:#090908; border-top:1px solid rgba(255,255,255,.08); display:grid; grid-template-columns:240px 1fr; align-items:start; }.footer-brand img { width:240px;height:auto;object-fit:contain;mix-blend-mode:lighten;border-radius:0; }.footer-copy p { color:var(--gold);letter-spacing:.2em;font-size:10px; }.footer-copy h2 { max-width:600px;font-family:'Syne';font-size:clamp(48px,6vw,82px);line-height:.92;letter-spacing:-.05em;margin:18px 0 38px; }.footer-copy a { color:white;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:8px;font-size:12px; }.footer-meta { position:absolute;right:5vw;bottom:40px;color:rgba(255,255,255,.45);font-size:10px;line-height:1.8;text-align:right; }.footer-meta a{color:inherit;text-decoration:none}.footer-meta p{margin:0}
+@media (max-width: 900px) {
+  .site-nav { height:76px;padding:0 20px; }.navbar-logo{height:48px}.menu-toggle { display:flex;width:42px;height:42px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:transparent;align-items:center;justify-content:center;flex-direction:column;gap:5px; }.menu-toggle span{width:16px;height:1px;background:white}.nav-links { position:absolute;top:76px;left:0;width:100%;padding:20px;background:#090908;border-bottom:1px solid rgba(255,255,255,.1);display:none; }.nav-links.open{display:grid}.nav-links a{padding:12px}.nav-links .nav-order{display:inline-block;text-align:center;margin-top:4px}
+  .hero { height:auto; min-height:760px; }.hero-grid { grid-template-columns:1fr;padding:120px 20px 110px;height:auto}.hero-copy-column { z-index:3 }.hero-title { font-size:clamp(70px,22vw,110px) }.hero-title .gold{margin-left:45px}.hero-copy{max-width:340px}.hero-actions{position:relative;z-index:4}.hero-visual{position:absolute;right:-90px;bottom:30px;width:370px;height:470px;opacity:.58}.hero-frame{width:300px}.hero-orbit{width:420px}.kinetic-ribbon{z-index:5}
+  .menu-section { padding:90px 20px }.menu-toolbar{align-items:flex-start;flex-direction:column}.menu-tabs{width:100%;overflow-x:auto}.menu-tabs button{min-width:145px}.board-button{align-self:flex-end;margin-top:-48px;z-index:2;background:#0b0a09}.dish-card{grid-template-columns:45px 1fr}.dish-order{grid-column:1/-1;grid-template-columns:1fr 72px;padding:0 0 20px 45px}.signature-section{padding:90px 20px}.spotlight-card{height:auto;grid-template-columns:1fr}.spotlight-image{height:420px}.spotlight-copy{min-height:330px;padding:30px}.courtyard-section{min-height:760px;padding-top:80px}.courtyard-frame{height:650px;transform:scale(.92)}.visit-section{grid-template-columns:1fr}.visit-photo{min-height:420px}.visit-card{padding:70px 20px}.site-footer{grid-template-columns:140px 1fr;padding:70px 20px}.footer-brand img{width:140px;height:auto;object-fit:contain;border-radius:0}
+}
+@media (max-width: 540px) {
+  .hero { min-height:700px }.hero-grid{padding-top:110px;padding-bottom:110px}.hero-title{font-size:68px}.hero-copy{font-size:13px}.hero-actions{flex-direction:column;align-items:flex-start}.hero-visual{right:-135px;bottom:-10px}.hero-frame{width:260px}.kinetic-ribbon{height:44px}
+  .menu-section{padding-top:70px}.section-heading h2,.spotlight-heading h2{font-size:44px}.menu-tabs button{min-width:130px}.board-button{align-self:flex-start;margin:0 0 10px;padding-left:0}.dish-card{grid-template-columns:32px 1fr;padding:20px 0}.dish-card:hover{padding-left:0}.dish-index{align-self:start;padding-top:7px}.dish-main{padding-right:10px}.dish-order{padding-left:32px;grid-template-columns:minmax(120px,1fr) 64px}.add-button{width:64px;height:64px}.dish-main h3{font-size:20px}.dish-main p{font-size:12px}.cart-fab{right:14px;bottom:14px}
+  .spotlight-image{height:330px}.spotlight-copy>span{font-size:58px}.spotlight-copy h3{font-size:38px}.courtyard-section{min-height:670px}.courtyard-heading{left:20px;top:70px}.courtyard-heading h2{font-size:50px}.courtyard-frame{height:540px;clip-path:inset(2% 0);transform:scale(1)}.courtyard-overlay{left:20px;bottom:30px}.courtyard-overlay h3{font-size:48px}.visit-photo{min-height:320px}.visit-card h2{font-size:46px}.site-footer{min-height:480px;grid-template-columns:120px 1fr}.footer-brand img{width:120px;height:auto;object-fit:contain;border-radius:0}.footer-copy h2{font-size:44px}.footer-meta{left:20px;right:auto;text-align:left}
+}
+
+/* Cinematic navigation and courtyard atmosphere */
+.grain-overlay { position: fixed; inset: 0; z-index: 50; pointer-events: none; opacity: .035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.72'/%3E%3C/svg%3E"); }
+.court-yard-glow { position: fixed; z-index: 0; width: 28vw; height: 28vw; border-radius: 50%; pointer-events: none; filter: blur(140px); opacity: .08; }
+.glow-amber { right: -8vw; top: 12vh; background: #f59e0b; }.glow-red { left: -12vw; top: 48vh; background: #dc2626; opacity:.055; }.glow-green { right: 8vw; bottom: -12vw; background:#16a34a; opacity:.055; }
+.site-nav { position: fixed; transition: height .3s, margin .3s, width .3s, background .3s, border .3s, border-radius .3s, backdrop-filter .3s; }
+.site-nav.scrolled { top: 14px; left: 2vw; width: 96vw; height: 76px; padding: 0 24px; border: 1px solid rgba(250,204,21,.10); border-radius: 999px; background: rgba(9,8,7,.80); backdrop-filter: blur(24px); box-shadow: 0 18px 50px rgba(0,0,0,.28); }
+.brand { border: 0; background: transparent; padding: 0; cursor:pointer; }
+.navbar-logo { height: 44px; width: auto; object-fit: contain; mix-blend-mode: lighten; filter: brightness(1.1) contrast(1.08); }
+.nav-links button { position: relative; border: 0; background: transparent; color: rgba(255,255,255,.76); padding: 10px 0; cursor:pointer; font-size:13px; font-weight:700; }
+.nav-links button > span { position:absolute; left:0; right:100%; bottom:2px; height:1px; background:var(--gold); transition:right .25s ease; }
+.nav-links button.active > span, .nav-links button:hover > span { right:0; }
+.nav-links .nav-order { color:#090908!important; background:var(--gold)!important; padding:13px 18px!important; border-radius:999px!important; }
+.courtyard-status { width:max-content; max-width:100%; min-height:34px; margin-bottom:18px; padding:7px 12px; border:1px solid rgba(250,204,21,.16); border-radius:999px; display:flex; align-items:center; gap:8px; background:rgba(9,8,7,.58); backdrop-filter:blur(16px); font-size:8px; letter-spacing:.12em; }
+.courtyard-status small { color:rgba(255,255,255,.42); }.status-dot { width:7px;height:7px;border-radius:50%;background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.12);animation:pulse-dot 2s infinite; }
+@keyframes pulse-dot { 50% { box-shadow:0 0 0 7px rgba(250,204,21,.08); background:var(--gold); } }
+.hero-frame { border:1px solid rgba(253,230,138,.20)!important; box-shadow:0 0 80px -15px rgba(250,204,21,.22),0 40px 100px rgba(0,0,0,.55)!important; transform-style:preserve-3d; }
+.hero-visual { transform-style:preserve-3d; }.floating-badge { position:absolute; z-index:5; padding:10px 13px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(18,17,16,.72); backdrop-filter:blur(14px); box-shadow:0 12px 30px rgba(0,0,0,.25); font-size:9px; line-height:1.45; letter-spacing:.06em; animation:badge-float 4s ease-in-out infinite; }
+.badge-hot { left:-2%; top:28%; }.badge-sauce { right:-4%; bottom:18%; animation-delay:-2s; }
+@keyframes badge-float { 50% { transform:translateY(-8px) rotate(-1deg); } }
+.hero-actions button { cursor:pointer; }.magnetic { transition:transform .25s ease, background .25s, color .25s; }.magnetic:hover { transform:translateY(-3px) scale(1.02); }
+.kinetic-ribbon {
+  position:absolute;
+  z-index:6;
+  left:-3%;
+  bottom:22px;
+  width:106%;
+  height:58px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  contain: layout paint;
+  transform:rotate(-1deg) translateZ(0);
+  background:var(--gold);
+  color:#090807;
+  border-top:1px solid rgba(255,255,255,.1);
+  border-bottom:1px solid rgba(0,0,0,.3);
+  box-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+.kinetic-track {
+  display:flex;
+  width:max-content;
+  backface-visibility:hidden;
+  will-change:transform;
+  animation:kinetic 36s linear infinite;
+}
+.kinetic-track span {
+  flex:none;
+  white-space:nowrap;
+  font-family:'Syne';
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.08em;
+  padding-right:24px;
+}
+@keyframes kinetic {
+  from { transform:translate3d(0,0,0); }
+  to { transform:translate3d(-50%,0,0); }
+}
+.sauce-strip { margin:16px 0 20px; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.sauce-strip > div { min-height:68px; padding:12px; border:1px solid rgba(255,255,255,.08); border-radius:8px; background:rgba(255,255,255,.025); display:grid; grid-template-columns:10px 1fr; column-gap:9px; align-content:center; }.sauce-strip b{font-size:11px}.sauce-strip small{grid-column:2;color:rgba(255,255,255,.42);margin-top:3px;font-size:9px}.sauce-dot{width:8px;height:8px;border-radius:50%;margin-top:3px}.sauce-dot.green{background:#16a34a}.sauce-dot.gold{background:#f59e0b}.sauce-dot.cream{background:#f8f6f1}.sauce-dot.red{background:#ef4444}
+.dish-order { grid-template-columns:1fr 72px; grid-template-rows:auto auto auto; }.dish-order select { width:100%; }.dish-order select:nth-of-type(1){grid-row:2}.dish-order select:nth-of-type(2){grid-row:3}.add-button{grid-row:1 / span 3}
+.guest-love { min-height:180px; margin:0; padding:36px 5vw; display:grid; grid-template-columns:150px 1fr auto; align-items:center; gap:32px; border-top:1px solid rgba(250,204,21,.09); border-bottom:1px solid rgba(255,255,255,.08); background:linear-gradient(90deg,rgba(225,29,72,.04),rgba(250,204,21,.025),rgba(22,163,74,.04)); backdrop-filter:blur(12px); }
+.guest-rating span{display:block;font-family:'Syne';font-size:40px;color:var(--gold)}.guest-rating small{font-size:8px;letter-spacing:.16em;color:rgba(255,255,255,.45)}.guest-love blockquote{max-width:760px;margin:0;color:rgba(255,255,255,.72);font-family:'Syne';font-size:18px;line-height:1.55}.catering-button{min-height:52px;padding:0 18px;border:1px solid rgba(250,204,21,.22);border-radius:999px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:24px;font-size:11px;font-weight:800;background:rgba(9,8,7,.55)}
+.footer-top { border:0; border-bottom:1px solid rgba(255,255,255,.25); background:transparent; color:white; padding:0 0 8px; cursor:pointer; }.spotlight-image img,.courtyard-frame img,.visit-photo img { transition:transform .8s cubic-bezier(.2,.8,.2,1); }.spotlight-image:hover img,.courtyard-frame:hover img,.visit-photo:hover img{transform:scale(1.035)}
+
+@media (max-width: 900px) {
+  .site-nav.scrolled { top:8px; left:3vw; width:94vw; height:68px; padding:0 14px; }.navbar-logo{height:40px}.nav-links button{color:rgba(255,255,255,.88)}.courtyard-status{font-size:7px}.hero-visual{opacity:.72!important}.floating-badge{display:none}.hero-grid{padding-bottom:110px}.kinetic-ribbon{bottom:20px;height:52px}.sauce-strip{grid-template-columns:repeat(2,1fr)}.guest-love{grid-template-columns:120px 1fr}.catering-button{grid-column:1/-1;justify-content:center}.dish-order{grid-template-rows:auto auto auto}.court-yard-glow{width:50vw;height:50vw}
+}
+
+.site-footer { padding-bottom:112px; }
+.footer-meta { bottom:112px; right:5vw; z-index:2; }
+.cart-fab { bottom:24px; right:24px; }
+@media (max-width: 540px) {
+  .site-footer { min-height:520px; padding-bottom:112px; }
+  .footer-meta { bottom:112px; left:20px; right:20px; text-align:left; }
+}
+
+/* Warm editorial polish and mobile-safe section rhythm */
+.mobile-signature-carousel,
+.mobile-checkout-dock {
+  display: none;
+}
+.hero-video { display: none; }
+
+.courtyard-culture {
+  padding: 128px 5vw 112px;
+  background: radial-gradient(circle at 78% 28%, rgba(245,184,0,.07), transparent 24%), #0B0A09;
+}
+.culture-heading { max-width: 1000px; }
+.culture-heading h2 {
+  margin: 18px 0 24px;
+  font-family: 'Syne';
+  font-size: clamp(52px, 7vw, 92px);
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+.culture-heading h2 em { color: var(--gold); font-style: normal; }
+.culture-subcopy { max-width: 760px; color: rgba(255,255,255,.62); font-size: 16px; line-height: 1.75; }
+.founder-callout {
+  max-width: 880px;
+  margin: 34px 0 38px;
+  padding: 18px 20px;
+  border-left: 2px solid var(--gold);
+  border-radius: 0 14px 14px 0;
+  background: rgba(255,255,255,.045);
+}
+.founder-callout span { color: var(--gold); font-size: 9px; letter-spacing: .16em; font-weight: 800; }
+.founder-callout p { margin: 8px 0 0; color: rgba(255,255,255,.72); line-height: 1.65; }
+.live-stage-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 20px; align-items: start; }
+.live-stage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 24px; border: 1px solid rgba(255,255,255,.10); background: #121110; box-shadow: 0 30px 80px rgba(0,0,0,.38); }
+.live-stage-poster { width: 100%; height: 100%; object-fit: cover; }
+.live-stage-iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.live-stage-vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(11,10,9,.92), rgba(0,0,0,.18) 58%, transparent); }
+.live-badge { position: absolute; top: 18px; left: 18px; min-height: 32px; display: flex; align-items: center; gap: 8px; padding: 0 11px; border-radius: 999px; border: 1px solid rgba(245,184,0,.18); background: rgba(11,10,9,.78); backdrop-filter: blur(10px); color: #F5B800; font-size: 8px; letter-spacing: .12em; font-weight: 800; }
+.live-badge span { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 16px rgba(245,184,0,.8); animation: archivePulse 1.8s ease-in-out infinite; }
+.live-stage-copy { position: absolute; left: 28px; right: 100px; bottom: 24px; }
+.live-stage-copy small { color: var(--gold); font-size: 8px; letter-spacing: .14em; }
+.live-stage-copy h3 { margin: 7px 0 3px; font-family: 'Syne'; font-size: clamp(30px, 4vw, 54px); line-height: .95; }
+.live-stage-copy p { margin: 0; color: rgba(255,255,255,.68); font-size: 12px; }
+.stage-play { position: absolute; right: 24px; bottom: 24px; width: 64px; height: 64px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255,255,255,.16); background: rgba(245,184,0,.94); color: #0A0A0A; cursor: pointer; backdrop-filter: blur(12px); transition: transform .25s ease, background .25s ease; }
+.stage-play:hover { transform: scale(1.06); background: #FFC928; }
+.stage-play svg { width: 24px; height: 24px; fill: currentColor; }
+.session-selector { display: grid; gap: 8px; }
+.session-selector button { min-height: 80px; width: 100%; display: grid; grid-template-columns: 38px 1fr; align-items: center; gap: 8px; text-align: left; padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.045); color: white; cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+.session-selector button:hover { background: rgba(255,255,255,.10); }
+.session-selector button.active { border-color: rgba(245,184,0,.38); background: rgba(245,184,0,.09); }
+.session-index { color: rgba(255,255,255,.28); font-family: 'Syne'; font-size: 18px; }
+.session-selector small, .session-selector b, .session-selector em { display: block; }
+.session-selector small { margin-bottom: 4px; color: var(--gold); font-size: 7px; letter-spacing: .08em; }
+.session-selector b { font-family: 'Syne'; font-size: 12px; line-height: 1.1; }
+.session-selector em { margin-top: 4px; color: rgba(255,255,255,.48); font-size: 9px; font-style: normal; }
+@keyframes archivePulse { 50% { opacity: .5; transform: scale(.8); } }
+
+@media (max-width: 767px) {
+  .kinetic-track { animation-duration:48s; }
+  .kinetic-ribbon { transform:rotate(-1deg); }
+  .menu-modal {
+    display: block;
+    padding: 64px 16px 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: rgba(7,7,6,.96);
+  }
+  .menu-modal img {
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+    border-radius: 12px;
+    object-fit: contain;
+  }
+  .modal-close {
+    position: fixed;
+    z-index: 112;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 50%;
+    background: rgba(18,17,16,.92);
+    backdrop-filter: blur(12px);
+  }
+  .courtyard-culture { padding: 88px 16px 96px; }
+  .culture-heading h2 { font-size: 48px; }
+  .culture-subcopy { font-size: 13px; line-height: 1.65; }
+  .founder-callout { margin: 26px 0 28px; }
+  .live-stage-layout { display: block; }
+  .live-stage { border-radius: 20px; }
+  .live-badge { top: 12px; left: 12px; }
+  .live-stage-copy { left: 16px; right: 74px; bottom: 14px; }
+  .live-stage-copy h3 { font-size: 24px; }
+  .live-stage-copy p { font-size: 10px; }
+  .stage-play { right: 12px; bottom: 12px; width: 52px; height: 52px; }
+  .session-selector {
+    margin-top: 12px;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .session-selector::-webkit-scrollbar { display: none; }
+  .session-selector button { flex: 0 0 82vw; min-height: 112px; scroll-snap-align: start; border-radius: 16px; padding: 12px 14px; }
+  .session-selector b { font-size: 14px; }
+}
+:root {
+  --obsidian: #0B0A09;
+  --charcoal: #121110;
+}
+body, html { background: #0B0A09; }
+.site-nav {
+  position: fixed;
+  background: rgba(11,11,11,.80);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  border-radius: 0;
+}
+.site-nav.scrolled {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 76px;
+  padding: 0 5vw;
+  border-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  background: rgba(11,11,11,.80);
+  backdrop-filter: blur(12px);
+  box-shadow: none;
+}
+.navbar-logo { height: 44px; }
+.hero { background: radial-gradient(circle at 76% 48%, rgba(245,184,0,.08), transparent 24%), radial-gradient(circle at 24% 80%, rgba(225,29,72,.05), transparent 30%), #0B0A09; }
+.hero-frame { border-radius: 24px; }
+.hero-image-vignette,
+.spotlight-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(11,10,9,.52), transparent 45%);
+}
+.floating-badge { display: none !important; }
+.courtyard-status small { display: none; }
+.courtyard-status { font-size: 8px; letter-spacing: .12em; background: rgba(11,11,11,.72); }
+.button, .board-button, .text-link, .catering-button, .nav-order {
+  transition: background .25s ease, border-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.nav-links .nav-order {
+  background: #F5B800 !important;
+  color: #0A0A0A !important;
+}
+.nav-links .nav-order:hover { background: #FFC928 !important; box-shadow: 0 8px 24px rgba(245,184,0,.12); }
+.menu-section, .signature-section, .courtyard-section, .visit-section {
+  background-color: #0B0A09;
+}
+.menu-section { padding-top: 128px; padding-bottom: 128px; }
+.signature-section { padding-top: 128px; padding-bottom: 128px; }
+.spotlight-card {
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.08);
+  overflow: hidden;
+  background: #121110;
+}
+.spotlight-image { position: relative; border-radius: 24px 0 0 24px; }
+.spotlight-copy { padding-top: 96px; }
+.spotlight-copy > span { top: 32px; right: 32px; font-size: 76px; }
+.text-link {
+  width: fit-content;
+  min-height: 48px;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  padding: 0 18px;
+  background: rgba(255,255,255,.06);
+  color: #FAFAFA;
+}
+.text-link:hover { background: rgba(255,255,255,.12); }
+.text-link b { color: #F5B800; }
+.add-button { background: #F5B800; border-color: #F5B800; color: #0A0A0A; }
+.add-button:hover { background: #FFC928; border-color: #FFC928; color: #0A0A0A; }
+.drawer-head button, .modal-close, .spotlight-nav button { background: transparent; }
+.whatsapp-button { background: #F5B800; color: #0A0A0A; }
+.board-button, .footer-top { color: #FAFAFA; }
+.guest-love { background: linear-gradient(90deg, rgba(225,29,72,.04), rgba(245,184,0,.035), rgba(22,163,74,.035)); }
+.site-footer { background: #0B0A09; }
+
+@media (min-width: 901px) {
+  .hero, .menu-section, .signature-section, .courtyard-section, .visit-section { scroll-margin-top: 76px; }
+}
+@media (max-width: 900px) {
+  .site-nav.scrolled { left: 0; width: 100%; height: 68px; padding: 0 20px; border-radius: 0; }
+  .navbar-logo { height: 40px; }
+  .menu-section { padding: 96px 20px; }
+  .signature-section { padding: 112px 20px 96px; }
+  .spotlight-card { height: auto; border-radius: 20px; }
+  .spotlight-image { height: 420px; border-radius: 20px 20px 0 0; }
+  .spotlight-copy { min-height: 330px; padding-top: 86px; }
+  .spotlight-copy > span { font-size: 58px; top: 24px; right: 20px; }
+  .courtyard-status { min-height: 32px; }
+  .hero-frame { border-radius: 20px; }
+}
+
+@media (max-width: 767px) {
+  .site-nav {
+    height: 68px;
+    padding: 0 16px;
+    background: rgba(11,11,11,.92);
+    backdrop-filter: blur(16px);
+  }
+  .navbar-logo { height: 40px; }
+  .site-nav.scrolled { height: 64px; top: 0; }
+  .hero {
+    height: 88svh;
+    min-height: 620px;
+    max-height: 820px;
+    background: #0B0A09;
+  }
+  .hero-grid {
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 0 20px 82px;
+  }
+  .hero-visual {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+  }
+  .hero-frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .hero-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(11,10,9,.08) 20%, rgba(11,10,9,.38) 48%, rgba(11,10,9,.96) 100%);
+  }
+  .hero-image {
+    height: 100%;
+    object-position: center 48%;
+  }
+  .hero-image { display: none; }
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero-orbit { display: none; }
+  .hero-copy-column {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 88px;
+    z-index: 4;
+  }
+  .courtyard-status {
+    margin-bottom: 14px;
+    background: rgba(11,10,9,.72);
+    backdrop-filter: blur(12px);
+    border-color: rgba(250,204,21,.18);
+  }
+  .hero-title {
+    margin: 0 0 16px;
+    font-size: clamp(58px, 18vw, 82px);
+    line-height: .78;
+  }
+  .hero-title .gold { margin-left: 42px; }
+  .hero-copy { display: none; }
+  .hero-actions {
+    margin-top: 0;
+    width: 100%;
+  }
+  .hero-actions .button-primary {
+    width: 100%;
+    min-height: 54px;
+  }
+  .hero-actions .button-ghost { display: none; }
+  .kinetic-ribbon { bottom: 12px; height: 38px; }
+  .hero-marquee { display: none; }
+
+  .spotlight-card, .spotlight-nav { display: none; }
+  .signature-section {
+    padding: 72px 0 72px 20px;
+    overflow: hidden;
+  }
+  .spotlight-heading { padding-right: 20px; }
+  .spotlight-heading h2 { margin-bottom: 28px; font-size: 44px; }
+  .mobile-signature-carousel {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-right: 20px;
+  }
+  .mobile-signature-carousel::-webkit-scrollbar { display: none; }
+  .mobile-signature-card {
+    position: relative;
+    flex: 0 0 82vw;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    scroll-snap-align: start;
+    background: #121110;
+  }
+  .mobile-signature-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .mobile-signature-vignette {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11,10,9,.96), rgba(11,10,9,.08) 58%, transparent);
+  }
+  .mobile-signature-copy {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 18px;
+  }
+  .mobile-signature-copy > span {
+    position: absolute;
+    right: 0;
+    bottom: 82px;
+    color: rgba(255,255,255,.72);
+    font-family: 'Syne';
+    font-size: 48px;
+  }
+  .mobile-signature-copy p { margin: 0 0 7px; color: #FACC15; font-size: 8px; letter-spacing: .08em; }
+  .mobile-signature-copy h3 { margin: 0 0 14px; font-family: 'Syne'; font-size: 30px; line-height: 1; }
+  .mobile-signature-copy .button { min-height: 44px; width: 100%; }
+
+  .menu-section { padding: 88px 16px 120px; }
+  .mobile-menu-food {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: -24px 0 18px;
+  }
+  .mobile-menu-board-card {
+    position: relative;
+    min-height: 230px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 0;
+    background: #121110;
+    color: #fff;
+    text-align: left;
+    cursor: pointer;
+  }
+  .mobile-menu-board-card img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    object-position: 50% 42%;
+    filter: saturate(.82) contrast(1.04);
+  }
+  .mobile-menu-board-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(11,10,9,.96) 0%, rgba(11,10,9,.42) 52%, rgba(11,10,9,.08) 100%);
+  }
+  .mobile-menu-board-copy {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    gap: 4px;
+  }
+  .mobile-menu-board-copy small {
+    color: #f5b800;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .18em;
+  }
+  .mobile-menu-board-copy strong { font-family: 'Syne'; font-size: 14px; line-height: 1.05; }
+  .mobile-menu-board-arrow {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(11,10,9,.72);
+    color: #f5b800;
+    backdrop-filter: blur(8px);
+  }
+  .menu-toolbar {
+    position: sticky;
+    top: 64px;
+    z-index: 30;
+    margin: 0 -16px 18px;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    background: rgba(11,10,9,.94);
+    backdrop-filter: blur(16px);
+  }
+  .menu-tabs {
+    width: 100%;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .menu-tabs::-webkit-scrollbar { display: none; }
+  .menu-tabs button {
+    flex: 0 0 auto;
+    min-width: auto;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 999px;
+    padding: 10px 13px;
+    text-align: center;
+    background: rgba(255,255,255,.04);
+  }
+  .menu-tabs button span { font-family: 'Plus Jakarta Sans'; font-size: 11px; }
+  .menu-tabs button small { display: none; }
+  .menu-tabs button.active {
+    border-color: rgba(245,184,0,.45);
+    background: rgba(245,184,0,.12);
+    color: #F5B800;
+  }
+  .board-button { display: none; }
+  .category-description { font-size: 12px; line-height: 1.55; }
+  .sauce-strip { grid-template-columns: repeat(2, 1fr); }
+  .dish-card {
+    min-height: 118px;
+    grid-template-columns: minmax(0,1fr) 92px;
+    gap: 8px;
+    align-items: center;
+    padding: 14px 0;
+  }
+  .dish-card:hover { padding-left: 0; background: transparent; }
+  .dish-index { display: none; }
+  .dish-main { padding-right: 4px; }
+  .dish-main h3 { font-size: 18px; margin-bottom: 5px; }
+  .dish-main p { font-size: 11px; line-height: 1.5; }
+  .dish-order {
+    min-height: auto;
+    grid-template-columns: 1fr 48px;
+    grid-template-rows: auto;
+    gap: 6px;
+    align-items: center;
+  }
+  .dish-order > strong { grid-column: 1; font-size: 15px; }
+  .dish-order select { grid-column: 1 / -1; height: 30px; font-size: 9px; }
+  .dish-order select:nth-of-type(1) { grid-row: 2; }
+  .dish-order select:nth-of-type(2) { grid-row: 3; }
+  .add-button {
+    grid-column: 2;
+    grid-row: 1;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 11px;
+  }
+  .cart-fab { display: none !important; }
+  .mobile-checkout-dock {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 80;
+    min-height: 68px;
+    display: grid;
+    grid-template-columns: 1fr 145px;
+    align-items: center;
+    gap: 8px;
+    padding: 7px;
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    background: rgba(18,17,16,.96);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 18px 60px rgba(0,0,0,.48);
+    animation: mobile-dock-in .35s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes mobile-dock-in {
+    from { transform: translateY(110%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .mobile-checkout-summary {
+    border: 0;
+    background: transparent;
+    color: white;
+    text-align: left;
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-checkout-summary span { color: rgba(255,255,255,.52); font-size: 10px; }
+  .mobile-checkout-summary strong { margin-top: 3px; font-family: 'Syne'; font-size: 14px; }
+  .mobile-checkout-dock a {
+    min-height: 54px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    background: #F5B800;
+    color: #0A0A0A;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .site-footer { padding-bottom: 112px; }
+}
+
+/* Final tactile editorial pass */
+:root {
+  --obsidian: #0A0908;
+}
+html, body {
+  background-color: var(--obsidian);
+  background-image:
+    radial-gradient(circle at 0 0, rgba(245,184,0,.035), transparent 38rem),
+    radial-gradient(circle at 100% 100%, rgba(245,184,0,.025), transparent 42rem);
+  background-repeat: no-repeat;
+}
+main {
+  background: linear-gradient(180deg, rgba(10,9,8,.94), rgba(10,9,8,1));
+}
+.section-heading h2,
+.culture-heading h2,
+.courtyard-heading h2,
+.spotlight-heading h2,
+.visit-card h2,
+.hero-title,
+.site-footer h2 {
+  text-wrap: balance;
+  letter-spacing: -.065em;
+  line-height: .88;
+}
+.hero-copy,
+.category-description,
+.culture-subcopy,
+.founder-callout p,
+.dish-main p,
+.visit-address,
+.footer-meta p {
+  line-height: 1.75;
+  text-wrap: pretty;
+}
+.eyebrow,
+.founder-callout span,
+.culture-heading .eyebrow,
+.dish-order > strong small,
+.pro-tip,
+.menu-tabs button small,
+.session-selector small,
+.live-badge,
+.live-stage-copy small {
+  color: #F5B800;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+.dish-order > strong {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
+}
+.dish-card,
+.sauce-strip > div,
+.founder-callout,
+.session-selector button,
+.mobile-signature-card,
+.mobile-menu-board-card,
+.mobile-checkout-dock,
+.live-stage,
+.visit-photo,
+.hero-frame,
+.guest-love {
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,.4);
+  transition:
+    border-color 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms ease,
+    transform 300ms cubic-bezier(.16,1,.3,1);
+}
+.dish-card:hover,
+.sauce-strip > div:hover,
+.session-selector button:hover,
+.mobile-menu-board-card:hover,
+.mobile-signature-card:hover,
+.founder-callout:hover,
+.visit-photo:hover,
+.hero-frame:hover {
+  border-color: rgba(255,255,255,.18);
+}
+.hero-frame,
+.visit-photo,
+.mobile-menu-board-card,
+.mobile-signature-card,
+.live-stage,
+.founder-callout {
+  overflow: hidden;
+  border-radius: 24px;
+}
+.hero-frame::after,
+.visit-photo::after,
+.mobile-menu-board-card::after,
+.mobile-signature-card::after,
+.live-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,.60), transparent 62%);
+}
+.hero-image,
+.visit-photo img,
+.mobile-menu-board-card img,
+.mobile-signature-card img,
+.live-stage-poster {
+  transition: transform 700ms cubic-bezier(.16,1,.3,1);
+}
+.hero-frame:hover .hero-image,
+.visit-photo:hover img,
+.mobile-menu-board-card:hover img,
+.mobile-signature-card:hover img,
+.live-stage:hover .live-stage-poster {
+  transform: scale(1.05);
+}
+.button,
+.add-button,
+.stage-play,
+.mobile-checkout-dock a,
+.nav-order,
+.board-button,
+.modal-close,
+.footer-top,
+.mobile-checkout-summary,
+.session-selector button,
+.menu-tabs button {
+  transition:
+    transform 300ms cubic-bezier(.16,1,.3,1),
+    border-color 300ms ease,
+    background-color 300ms ease,
+    color 300ms ease,
+    box-shadow 300ms ease;
+}
+.button:active,
+.add-button:active,
+.stage-play:active,
+.mobile-checkout-dock a:active,
+.nav-order:active,
+.board-button:active,
+.modal-close:active,
+.footer-top:active,
+.mobile-checkout-summary:active,
+.session-selector button:active,
+.menu-tabs button:active {
+  transform: scale(.95);
+}
+.button-primary,
+.whatsapp-button,
+.mobile-checkout-dock a,
+.nav-order {
+  box-shadow: 0 0 0 rgba(245,184,0,0);
+}
+.button-primary:hover,
+.whatsapp-button:hover,
+.mobile-checkout-dock a:hover,
+.nav-order:hover {
+  box-shadow: 0 10px 32px rgba(245,184,0,.18);
+}
+.button-primary span,
+.button-ghost span,
+.hero-actions .button span,
+.footer-top {
+  transition: transform 300ms cubic-bezier(.16,1,.3,1);
+}
+.button-primary:hover span,
+.button-ghost:hover span,
+.hero-actions .button:hover span {
+  transform: translateX(4px);
+}
+.menu-modal,
+.order-drawer {
+  transition:
+    opacity 300ms cubic-bezier(.16,1,.3,1),
+    transform 300ms cubic-bezier(.16,1,.3,1);
+}
+.mobile-menu-board-card { position: relative; }
+.mobile-menu-board-card::after { z-index: 0; }
+.mobile-menu-board-shade,
+.mobile-menu-board-copy,
+.mobile-menu-board-arrow { z-index: 2; }
+
+@media (max-width: 767px) {
+  .menu-section,
+  .courtyard-culture,
+  .guest-love,
+  .visit-section,
+  .site-footer {
+    background-color: #0A0908;
+  }
+  .section-heading h2,
+  .culture-heading h2,
+  .spotlight-heading h2,
+  .visit-card h2 {
+    letter-spacing: -.06em;
+    line-height: .92;
+  }
+  .hero-frame {
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+  }
+  .hero-frame::after { z-index: 2; }
+  .dish-card {
+    border: 0;
+    border-bottom-color: rgba(255,255,255,.08);
+    box-shadow: none;
+  }
+  .mobile-signature-card,
+  .mobile-menu-board-card {
+    border-radius: 20px;
+  }
+}
+
+
+===== src\components\Navbar.jsx =====
+import { useEffect, useState } from 'react';
+import { navLinks } from '../constants/index.js';
+import { scrollToSection } from '../utils/navigation.js';
+
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('hero');
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { rootMargin: '-35% 0px -55%', threshold: 0 });
+    ['hero', ...navLinks.map((link) => link.id)].forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
+  }, []);
+
+  const navigate = (event, id) => {
+    event.preventDefault();
+    setOpen(false);
+    scrollToSection(id);
+  };
+  return (
+    <header className={scrolled ? 'site-nav scrolled' : 'site-nav'}>
+      <button className="brand" type="button" onClick={(event) => navigate(event, 'hero')} aria-label="Trini-Yaad home">
+        <img className="navbar-logo" src="/images/logo-clean.webp?v=2" width="240" height="96" fetchPriority="high" loading="eager" decoding="async" alt="Trini-Yaad at Dubwise Cafe" />
+      </button>
+      <button className="menu-toggle" type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
+        <span /><span />
+      </button>
+      <nav className={open ? 'nav-links open' : 'nav-links'} aria-label="Main navigation">
+        {navLinks.map((link) => (
+          <button key={link.id} className={active === link.id ? 'active' : ''} type="button" onClick={(event) => navigate(event, link.id)}>{link.label}<span /></button>
+        ))}
+        <button className="nav-order" type="button" onClick={(event) => navigate(event, 'menu')}>Order food</button>
+      </nav>
+    </header>
+  );
+};
+export default Navbar;
+
+
+===== src\components\Hero.jsx =====
+import { useEffect, useRef, useState } from 'react';
+import { scrollToSection } from '../utils/navigation.js';
+
+const Hero = () => {
+  const root = useRef(null);
+  const visual = useRef(null);
+  const [status, setStatus] = useState('');
+
+  useEffect(() => {
+    const updateStatus = () => {
+      const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Jamaica', weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: false }).formatToParts(new Date());
+      const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+      const hour = Number(values.hour);
+      const minute = Number(values.minute);
+      const minutes = hour * 60 + minute;
+      const day = values.weekday;
+      const isOpenDay = day !== 'Mon';
+      const open = isOpenDay && minutes >= 630 && minutes <= 1320;
+      const openingSoon = isOpenDay && minutes >= 600 && minutes < 630;
+      setStatus(`${open ? 'OPEN NOW' : openingSoon ? 'OPENING SOON' : 'CLOSED'} â€¢ ${values.hour}:${values.minute} KINGSTON`);
+    };
+    updateStatus();
+    const timer = window.setInterval(updateStatus, 30000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const tilt = (event) => {
+    if (!visual.current || window.matchMedia('(pointer: coarse)').matches) return;
+    const rect = visual.current.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    visual.current.style.transform = `perspective(900px) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`;
+  };
+  const resetTilt = () => {
+    if (visual.current) visual.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+  };
+
+  useEffect(() => {
+    let context;
+    if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
+    const start = window.requestAnimationFrame(() => {
+      const schedule = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 180));
+      schedule(() => {
+        Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ default: gsap }, { ScrollTrigger }]) => {
+          gsap.registerPlugin(ScrollTrigger);
+          if (!root.current) return;
+          context = gsap.context(() => {
+            gsap.to('.hero-image', {
+              yPercent: -10, scale: 1.08,
+              scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+              ease: 'none',
+            });
+            gsap.to('.hero-orbit', {
+              rotate: 12, y: -30,
+              scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 },
+            });
+          }, root);
+        });
+      });
+    });
+    return () => {
+      window.cancelAnimationFrame(start);
+      if (context) context.revert();
+    };
+  }, []);
+
+  return (
+    <section id="hero" className="hero" ref={root}>
+      <div className="hero-ambient ambient-red" />
+      <div className="hero-ambient ambient-green" />
+      <div className="hero-grid">
+        <div className="hero-copy-column">
+          <div className="courtyard-status">
+            <span className="status-dot" />
+            <b>{status || 'LIVE AT DUBWISE COURTYARD'}</b>
+          </div>
+          <h1 className="hero-title"><span className="line">TRINI</span><span className="line gold">YAAD</span></h1>
+          <p className="hero-copy">Street food with island soul. Doubles, buss up shut, fried bake and bold Trini flavours in the heart of Kingston.</p>
+          <div className="hero-actions">
+            <button type="button" className="button button-primary magnetic" onClick={() => scrollToSection('menu')}>Explore the menu <span aria-hidden="true">â†—</span></button>
+            <button type="button" className="button button-ghost magnetic" onClick={() => scrollToSection('visit')}>Find the courtyard</button>
+          </div>
+        </div>
+        <div className="hero-visual" ref={visual} onMouseMove={tilt} onMouseLeave={resetTilt}>
+          <div className="hero-orbit"><span>TRINI</span><span>YAAD</span></div>
+          <div className="hero-frame">
+            <img className="hero-image" src="/images/photo-3.webp?v=2" width="520" height="684" fetchPriority="high" loading="eager" decoding="async" alt="Authentic Trini doubles with channa, cucumber and Shado Beni" />
+            <video className="hero-video" src="/hero-vibe.mp4?v=1" autoPlay muted loop playsInline preload="metadata" aria-label="Atmospheric Trini-Yaad courtyard video">
+              <span>Trini-Yaad courtyard atmosphere</span>
+            </video>
+            <span className="hero-image-vignette" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+      <div className="kinetic-ribbon" aria-label="Trini-Yaad courtyard menu">
+        <div className="kinetic-track">
+          <span>DOUBLES â€¢ BUSS UP SHUT â€¢ BAKE &amp; SHRIMP â€¢ SLAW DEM FRY DEM â€¢ SHADO BENI SAUCE â€¢ DUBWISE REGGAE COURTYARD â€¢ 82 LADY MUSGRAVE RD â€¢ </span>
+          <span aria-hidden="true">DOUBLES â€¢ BUSS UP SHUT â€¢ BAKE &amp; SHRIMP â€¢ SLAW DEM FRY DEM â€¢ SHADO BENI SAUCE â€¢ DUBWISE REGGAE COURTYARD â€¢ 82 LADY MUSGRAVE RD â€¢ </span>
+        </div>
+      </div>
+    </section>
+  );
+};
+export default Hero;
+
+
+===== src\components\MenuSection.jsx =====
+import { useEffect, useRef, useState } from 'react';
+import { menuGroups } from '../constants/index.js';
+
+const money = (value) => `$${value.toLocaleString('en-US')}`;
+
+const MenuSection = () => {
+  const root = useRef(null);
+  const cards = useRef(null);
+  const [active, setActive] = useState('doubles');
+  const [cart, setCart] = useState([]);
+  const [drawer, setDrawer] = useState(false);
+  const [menuModal, setMenuModal] = useState(false);
+  const [options, setOptions] = useState({});
+  const gsapRef = useRef(null);
+
+  useEffect(() => {
+    let context;
+    const start = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 240));
+    const handle = start(async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
+      gsap.registerPlugin(ScrollTrigger);
+      gsapRef.current = gsap;
+      if (!root.current) return;
+      context = gsap.context(() => {
+        gsap.from('.menu-heading, .menu-tabs', {
+          y: 30, opacity: 0, duration: 0.8, stagger: 0.08,
+          scrollTrigger: { trigger: '#menu', start: 'top 78%', once: true },
+        });
+      }, root);
+    });
+    return () => {
+      if (context) context.revert();
+      if (window.cancelIdleCallback && typeof handle === 'number') window.cancelIdleCallback(handle);
+    };
+  }, []);
+
+  const switchGroup = (id) => {
+    if (id === active) return;
+    const gsap = gsapRef.current;
+    if (!gsap) {
+      setActive(id);
+      return;
+    }
+    gsap.to(cards.current, {
+      opacity: 0, y: 12, duration: 0.18,
+      onComplete: () => {
+        setActive(id);
+        gsap.fromTo(cards.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' });
+        gsap.fromTo('.dish-card', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power2.out' });
+      },
+    });
+  };
+
+  const addItem = (item) => {
+    const key = `${active}-${item.name}`;
+    const selected = options[key] || {};
+    const price = item.price;
+    setCart((current) => [...current, {
+      name: item.name, price, pepper: selected.pepper, sauces: selected.sauces || [],
+    }]);
+    setDrawer(true);
+  };
+
+  const setOption = (name, field, value) => setOptions((current) => ({
+    ...current, [`${active}-${name}`]: { ...current[`${active}-${name}`], [field]: value },
+  }));
+
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const message = `Hi Trini-Yaad! I'd like to order:\n${cart.map((item) => {
+    const extras = [item.pepper && `Pepper: ${item.pepper}`, item.sauces?.length && `Sauce: ${item.sauces.join(', ')}`].filter(Boolean).join(' | ');
+    return `â€¢ ${item.name} â€” $${item.price.toLocaleString('en-US')}${extras ? ` (${extras})` : ''}`;
+  }).join('\n')}\n\nTotal: $${total.toLocaleString('en-US')} JMD`;
+
+  const group = menuGroups.find((entry) => entry.id === active);
+  const supportsCustomisation = ['doubles', 'buss-up-shut', 'fried-bake'].includes(active);
+
+  return (
+    <section id="menu" className="menu-section" ref={root}>
+      <div className="section-heading menu-heading">
+        <p className="eyebrow">The Food Line</p>
+        <h2>Choose your <em>island mood.</em></h2>
+      </div>
+      <div className="mobile-menu-food">
+        <button className="mobile-menu-board-card" type="button" onClick={() => setMenuModal(true)} aria-label="Open the full Trini-Yaad menu graphic">
+          <img src="/images/photo-4.webp?v=11" width="1400" height="1000" loading="lazy" decoding="async" alt="" />
+          <span className="mobile-menu-board-shade" aria-hidden="true" />
+          <span className="mobile-menu-board-copy">
+            <small>FULL MENU</small>
+            <strong>View the complete menu</strong>
+          </span>
+          <span className="mobile-menu-board-arrow" aria-hidden="true">â†—</span>
+        </button>
+      </div>
+      <div className="menu-toolbar">
+        <div className="menu-tabs" role="tablist" aria-label="Menu categories">
+          {menuGroups.map((entry) => (
+            <button key={entry.id} className={active === entry.id ? 'active' : ''} role="tab" aria-selected={active === entry.id} onClick={() => switchGroup(entry.id)}>
+              <span>{entry.label}</span><small>{entry.eyebrow}</small>
+            </button>
+          ))}
+        </div>
+        <button className="board-button" type="button" onClick={() => setMenuModal(true)}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5" /></svg>
+          View Full Menu Graphic
+        </button>
+      </div>
+      {group.description && <p className="category-description">{group.description}</p>}
+      {supportsCustomisation && (
+        <div className="sauce-strip" aria-label="Secret sauces and heat preferences">
+          <div><span className="sauce-dot green" /><b>Signature Green</b><small>Shado beni sauce</small></div>
+          <div><span className="sauce-dot gold" /><b>Sweet Tamarind</b><small>Tangy house chutney</small></div>
+          <div><span className="sauce-dot cream" /><b>White Garlic</b><small>Creamy house sauce</small></div>
+          <div><span className="sauce-dot red" /><b>Scotch Bonnet</b><small>No / Slight / Medium / Heavy</small></div>
+        </div>
+      )}
+      <div className="menu-grid" ref={cards}>
+        {group.items.map((item, index) => {
+          const key = `${active}-${item.name}`;
+          const selected = options[key] || {};
+          return (
+            <article className="dish-card" key={item.name}>
+              <div className="dish-index">0{index + 1}</div>
+              <div className="dish-main">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+                {item.badge && <div className="pro-tip"><b>Pro Tip:</b> {item.badge}</div>}
+              </div>
+              <div className="dish-order">
+                <strong>{money(item.price)} <small>JMD</small></strong>
+                {supportsCustomisation && (
+                  <select aria-label={`Pepper level for ${item.name}`} value={selected.pepper || ''} onChange={(event) => setOption(item.name, 'pepper', event.target.value)}>
+                    <option value="">Pepper level</option><option>No Pepper</option><option>Slight Pepper</option><option>Medium Pepper</option><option>Heavy Pepper</option>
+                  </select>
+                )}
+                {supportsCustomisation && (
+                  <select aria-label={`Sauce preference for ${item.name}`} value={(selected.sauces || []).join(',')} onChange={(event) => setOption(item.name, 'sauces', event.target.value ? event.target.value.split('|') : [])}>
+                    <option value="">Extra sauce</option>
+                    <option value="Shado Beni">Green Shado Beni</option>
+                    <option value="Tamarind">Tamarind</option>
+                    <option value="White Garlic">White Garlic</option>
+                    <option value="Shado Beni|Tamarind|White Garlic">All house sauces</option>
+                  </select>
+                )}
+                <button type="button" className="add-button" onClick={() => addItem(item)} aria-label={`Add ${item.name}`}>+ Add</button>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      {cart.length > 0 && <button className="cart-fab" type="button" onClick={() => setDrawer(true)} aria-label="Open order builder">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h2l2 9h9l2-6H7M10 20h.01M17 20h.01" /></svg>
+        Order <span>{cart.length}</span>
+      </button>}
+      {cart.length > 0 && (
+        <div className="mobile-checkout-dock" role="region" aria-label="Quick checkout">
+          <button type="button" className="mobile-checkout-summary" onClick={() => setDrawer(true)}>
+            <span>{cart.length} {cart.length === 1 ? 'item' : 'items'}</span>
+            <strong>{money(total)} JMD</strong>
+          </button>
+          <a href={`https://wa.me/18763520139?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer">WhatsApp Checkout</a>
+        </div>
+      )}
+      {drawer && (
+        <div className="drawer-backdrop" onMouseDown={() => setDrawer(false)}>
+          <aside className="order-drawer" onMouseDown={(event) => event.stopPropagation()}>
+            <div className="drawer-head"><div><p>Your Tray</p><h3>Quick Order</h3></div><button onClick={() => setDrawer(false)} aria-label="Close order drawer">Ã—</button></div>
+            {cart.length === 0 ? <p className="empty-order">Your tray is empty. Add a dish from the menu.</p> : (
+              <>
+                <div className="order-list">{cart.map((item, index) => (
+                  <div className="order-item" key={`${item.name}-${index}`}>
+                    <div><b>{item.name}</b>{item.pepper && <small>{item.pepper}</small>}{item.sauces?.length > 0 && <small>Sauce: {item.sauces.join(', ')}</small>}</div>
+                    <strong>{money(item.price)}</strong>
+                  </div>
+                ))}</div>
+                <div className="order-total"><span>Total</span><strong>{money(total)} <small>JMD</small></strong></div>
+                <a className="whatsapp-button" href={`https://wa.me/18763520139?text=${encodeURIComponent(message)}`} target="_blank" rel="noopener noreferrer">Send order to 876-352-0139 <span>â†—</span></a>
+              </>
+            )}
+            <div className="order-channels">
+              <a href="tel:+18763520139">Call / WhatsApp 876-352-0139</a>
+              <a href="https://instagram.com/triniyaad" target="_blank" rel="noopener noreferrer">Instagram DM @TRINIYAAD</a>
+              <p>Also available on 7Krave &amp; QuickCart</p>
+            </div>
+          </aside>
+        </div>
+      )}
+      {menuModal && (
+        <div className="menu-modal" role="dialog" aria-modal="true" aria-label="Original menu board" onMouseDown={() => setMenuModal(false)}>
+          <button className="modal-close" type="button" onClick={() => setMenuModal(false)} aria-label="Close menu board">Ã—</button>
+          <img src="/images/photo-4.webp?v=2" width="1400" height="1000" loading="lazy" decoding="async" alt="Official Trini-Yaad full menu board" />
+        </div>
+      )}
+    </section>
+  );
+};
+export default MenuSection;
+
+
+===== src\components\SignatureSpotlight.jsx =====
+import { useRef, useState } from 'react';
+import { scrollToSection } from '../utils/navigation.js';
+
+const dishes = [
+  { name: 'Trini Doubles', image: '/images/doubles-reel.webp?v=3', number: '01', note: 'CURRIED CHANNA Â· SHADO BENI Â· CUCUMBER' },
+  { name: "'Buss Up Shut' Platter", image: '/images/photo-5.webp?v=2', number: '02', note: 'ROTI Â· CURRY CHICKEN Â· CHOKA' },
+  { name: 'Bake & Shrimp', image: '/images/photo-4.webp?v=5', number: '03', note: 'FRIED SHRIMP Â· FLUFFY BAKE Â· HOUSE SAUCES' },
+];
+
+const SignatureSpotlight = () => {
+  const root = useRef(null);
+  const [current, setCurrent] = useState(0);
+  const change = (index) => {
+    setCurrent(index);
+  };
+  const dish = dishes[current];
+  return (
+    <section id="signature" className="signature-section" ref={root}>
+      <div className="spotlight-card">
+        <div className="spotlight-image"><img src={dish.image} width="900" height="700" loading="lazy" decoding="async" alt={dish.name} /><span className="spotlight-vignette" aria-hidden="true" /></div>
+        <div className="spotlight-copy">
+          <span>{dish.number}</span>
+          <p className="spotlight-note">{dish.note}</p>
+          <h3>{dish.name}</h3>
+          <button type="button" className="text-link" onClick={() => scrollToSection('menu')}>Add to your order <b>â†—</b></button>
+        </div>
+      </div>
+      <div className="mobile-signature-carousel" aria-label="Signature dishes">
+        {dishes.map((item) => (
+          <article className="mobile-signature-card" key={item.name}>
+            <img src={item.image} width="900" height="1200" loading="lazy" decoding="async" alt={item.name} />
+            <div className="mobile-signature-vignette" aria-hidden="true" />
+            <div className="mobile-signature-copy">
+              <span>{item.number}</span>
+              <p>{item.note}</p>
+              <h3>{item.name}</h3>
+              <button type="button" className="button button-primary" onClick={() => scrollToSection('menu')}>Add to order</button>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="spotlight-nav">
+        {dishes.map((item, index) => (
+          <button key={item.name} className={index === current ? 'active' : ''} type="button" onClick={() => change(index)} aria-label={`Show ${item.name}`}><span /></button>
+        ))}
+      </div>
+    </section>
+  );
+};
+export default SignatureSpotlight;
+
+
+===== src\components\CourtyardVibe.jsx =====
+import { useState } from 'react';
+import { performances } from '../constants/performances.js';
+
+const CourtyardVibe = () => {
+  const [active, setActive] = useState(performances.find((performance) => performance.featured) || performances[0]);
+  const [playing, setPlaying] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
+  const selectPerformance = (performance) => {
+    setActive(performance);
+    setPlaying(false);
+    setPosterFailed(false);
+  };
+  return (
+    <section id="courtyard" className="courtyard-culture">
+      <div className="culture-heading">
+        <p className="eyebrow">82 LADY MUSGRAVE ROAD â€¢ SOUND SYSTEM HERITAGE</p>
+        <h2>Come for the doubles.<br /><em>Stay for the dub.</em></h2>
+        <p className="culture-subcopy">Tucked behind Kaya in Kingston 6, Trini-Yaad cooks right inside the legendary Dubwise Cafe courtyardâ€”where wooden speaker stacks, string lights, vinyl selectors, and Jamaica's heaviest voices meet after dark.</p>
+      </div>
+      <div className="founder-callout">
+        <span>FOUNDER STORY</span>
+        <p>Misir Ramberran brought â€œa little piece of Trinidad in the heart of Kingstonâ€ to Lady Musgrave Road: vegan-friendly bases, optional chicken, shrimp, fish or curried goat, house-made Shado Beni and tamarind sauces, and no preservatives.</p>
+      </div>
+      <div className="live-stage-layout">
+        <div className="live-stage">
+          {playing ? (
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${active.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+              title={`${active.artist} â€” ${active.title}`}
+              allow="autoplay; encrypted-media; picture-in-picture"
+              allowFullScreen
+              className="live-stage-iframe"
+            />
+          ) : (
+            <>
+              <img
+                className="live-stage-poster"
+                src={posterFailed ? `https://i.ytimg.com/vi/${active.id}/hqdefault.jpg` : `https://i.ytimg.com/vi/${active.id}/maxresdefault.jpg`}
+                width="1280"
+                height="720"
+                loading="lazy"
+                decoding="async"
+                alt={`${active.artist} â€” ${active.title}`}
+                onError={() => setPosterFailed(true)}
+              />
+              <div className="live-stage-vignette" aria-hidden="true" />
+              <div className="live-badge"><span /> LIVE ARCHIVE</div>
+              <div className="live-stage-copy"><small>{active.tag}</small><h3>{active.artist}</h3><p>{active.title}</p></div>
+              <button type="button" className="stage-play" aria-label={`Play ${active.title}`} onClick={() => setPlaying(true)}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+              </button>
+            </>
+          )}
+        </div>
+        <div className="session-selector" aria-label="Dubwise session selector">
+          {performances.map((performance) => (
+            <button
+              type="button"
+              key={performance.id}
+              className={performance.id === active.id ? 'active' : ''}
+              onClick={() => selectPerformance(performance)}
+            >
+              <span className="session-index">{String(performances.indexOf(performance) + 1).padStart(2, '0')}</span>
+              <span><small>{performance.tag}</small><b>{performance.artist}</b><em>{performance.title}</em></span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+export default CourtyardVibe;
+
+
+===== src\components\GuestLove.jsx =====
+const GuestLove = () => (
+  <section className="guest-love" aria-label="Guest reviews and courtyard events">
+    <div className="guest-rating"><span>4.4â˜…</span><small>KINGSTON FAVORITE</small></div>
+    <blockquote>
+      â€œPillowy barra, generous portions, and those addictive green and white garlic sauces â€” with reggae dancing in the Dubwise garden behind Kaya.â€
+    </blockquote>
+    <a className="catering-button magnetic" href="https://wa.me/18763520139?text=Hi%20Trini-Yaad!%20I%27m%20interested%20in%20catering%20and%20courtyard%20events." target="_blank" rel="noopener noreferrer">
+      Catering &amp; Courtyard Events <span>â†—</span>
+    </a>
+  </section>
+);
+export default GuestLove;
+
+
+===== src\components\VisitUs.jsx =====
+const VisitUs = () => (
+  <section id="visit" className="visit-section">
+    <div className="visit-photo"><img src="/images/photo-2.webp?v=2" width="1200" height="680" loading="lazy" decoding="async" alt="Dubwise Cafe courtyard stall" /></div>
+    <div className="visit-card">
+      <p className="eyebrow">Visit Us at Dubwise Cafe</p>
+      <h2>82 Lady Musgrave Road</h2>
+      <p className="visit-address">Behind Kaya Â· Kingston 6, Jamaica</p>
+      <div className="visit-order"><b>How to order</b><p><a href="https://wa.me/18763520139" target="_blank" rel="noopener noreferrer">WhatsApp / Call: 876-352-0139</a></p><p><a href="https://instagram.com/triniyaad" target="_blank" rel="noopener noreferrer">Instagram DM: @TRINIYAAD</a></p><p>Also available on 7Krave &amp; QuickCart</p></div>
+      <a className="button button-primary" href="https://www.google.com/maps/search/?api=1&query=82+Lady+Musgrave+Road+Kingston+6+Jamaica" target="_blank" rel="noopener noreferrer">Get directions <span>â†—</span></a>
+    </div>
+  </section>
+);
+export default VisitUs;
+
+
+===== src\components\Footer.jsx =====
+import { scrollToSection } from '../utils/navigation.js';
+
+const Footer = () => (
+  <footer className="site-footer">
+    <div className="footer-brand">
+      <img
+        className="w-48 sm:w-60 h-auto object-contain mix-blend-lighten"
+        width="240"
+        height="180"
+        loading="lazy"
+        decoding="async"
+        src="/images/photo-1.webp?v=4"
+        alt="Trini-Yaad at Dubwise Cafe"
+      />
+    </div>
+    <div className="footer-copy">
+      <p>TRINI-YAAD Ã— DUBWISE</p>
+      <h2>Kingston, taste the islands.</h2>
+      <button type="button" className="footer-top" onClick={() => scrollToSection('hero')}>Back to top â†‘</button>
+    </div>
+    <div className="footer-meta">
+      <p>Visit Us at Dubwise Cafe â€” 82 Lady Musgrave Road, Kingston 6</p>
+      <p><a href="tel:+18763520139">876-352-0139</a> Â· <a href="https://wa.me/18763520139" target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
+      <p><a href="https://instagram.com/triniyaad" target="_blank" rel="noopener noreferrer">@TRINIYAAD</a></p>
+      <p>Also available on 7Krave &amp; QuickCart</p>
+    </div>
+  </footer>
+);
+export default Footer;
+
+
+===== src\constants\index.js =====
+export const navLinks = [
+  { id: 'menu', label: 'Menu' },
+  { id: 'courtyard', label: 'The Courtyard' },
+  { id: 'visit', label: 'Visit Us' },
+];
+
+export const menuGroups = [
+  {
+    id: 'doubles',
+    label: 'Doubles',
+    eyebrow: '$500â€“$1,500 JMD',
+    description: 'Chickpeas, served with tamarind chutney, and cucumbers over two (2) fried flatbreads.',
+    items: [
+      { name: 'Doubles â€” Vegan', price: 500, description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', pepper: true },
+      { name: 'Doubles â€” w/ Chicken', price: 1000, description: 'Curried / Stew Chicken.', pepper: true },
+      { name: 'Doubles â€” w/ Curried Goat', price: 1500, description: 'Curried goat over two fried flatbreads.', pepper: true },
+    ],
+  },
+  {
+    id: 'buss-up-shut',
+    label: 'Buss Up Shut',
+    eyebrow: '$1,500â€“$2,500 JMD',
+    description: 'Silky roti served alongside mixed vegetables, pumpkin talkari, curried chickpeas, and our special house chutney.',
+    items: [
+      { name: 'Buss Up Shut â€” Vegan Mix', price: 1500, description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.' },
+      { name: 'Buss Up Shut â€” w/ Chicken', price: 2000, description: 'Curried / Stew Chicken.' },
+      { name: 'Buss Up Shut â€” w/ Curried Goat', price: 2500, description: 'With curried goat.' },
+      { name: 'Buss Up Shut â€” w/ Oxtail', price: 2500, description: 'With oxtail.' },
+    ],
+  },
+  {
+    id: 'slaw-dem-fry-dem',
+    label: 'Slaw Dem Fry Dem',
+    eyebrow: '$1,500â€“$2,500 JMD',
+    description: 'Every dish comes with the perfect pair â€” golden, crispy fries and cool, creamy coleslaw.',
+    items: [
+      { name: 'Slaw Dem Fry Dem â€” w/ BBQ Chicken', price: 1500, description: 'Golden crispy fries and cool creamy coleslaw with BBQ chicken.' },
+      { name: 'Slaw Dem Fry Dem â€” w/ Fried Fish', price: 2500, description: 'Golden crispy fries and cool creamy coleslaw with fried fish.' },
+    ],
+  },
+  {
+    id: 'fried-bake',
+    label: 'Fried Bake',
+    eyebrow: '$800â€“$1,500 JMD',
+    items: [
+      { name: 'Bake and Shark', price: 1200, description: 'Golden fried shark, fluffy bake, fresh salad, and our signature house sauces.' },
+      { name: 'Bake and Shrimp', price: 1500, description: 'Golden fried shrimp, fluffy bake, fresh salad, and our signature house sauces.' },
+      { name: 'Bake and Chicken', price: 1000, description: 'Curried or stewed chicken, fluffy bake, fresh salad, and our signature house sauces.' },
+      { name: 'Bake and Veg.', price: 800, description: 'Curried chickpeas, fluffy bake, fresh salad, and our signature house sauces.' },
+    ],
+  },
+  {
+    id: 'others',
+    label: 'Others',
+    eyebrow: '$500 JMD',
+    items: [
+      { name: 'Aloo Pies', price: 500, description: 'Curried chickpeas, served with seasoned mash potatoes and tamarind chutney.' },
+      { name: 'Corn Soup', price: 500, description: 'Hearty delicious soup filled with corn and vegetables.' },
+      { name: 'Fries', price: 500, description: 'Freshly fried, lightly salted fries made to perfection.' },
+    ],
+  },
+];
+
+
+===== src\constants\performances.js =====
+export const performances = [
+  { id: 'Xi_W21k2rgw', artist: 'Protoje', title: 'Live at Dubwise Jamaica', tag: 'FOUNDATION SESSION â€¢ KINGSTON', featured: true },
+  { id: 'lKm2h6Cfod8', artist: 'Chronixx, Protoje, Kabaka Pyramid & Lila IkÃ©', title: 'Roots Revival Cypher', tag: 'LEGENDARY LINKUP' },
+  { id: 'ZG7-k5J8O6o', artist: 'Hezron', title: "Can't Tek Di Pressure (Live Acoustic)", tag: 'COURTYARD STAGE â€¢ SPEAKER WALL' },
+  { id: 'cmyPIMcFB1k', artist: 'Brush1 The Road Marshal', title: 'Ladies Love Reggae 2026 Live Mix', tag: 'COURTYARD NIGHTS â€¢ 2026' },
+  { id: 'a0mDEDtYUog', artist: 'Lila IkÃ© & Zhem', title: 'Dubschool Roots Freestyle', tag: 'OPEN MIC FREESTYLE' },
+  { id: 'nX2RgXPBRuM', artist: 'Busy Signal', title: 'Live @ The Dub Wise Cafe', tag: 'FRIDAY NIGHT SHELLINGZ' },
+];
+
+
+===== src\utils\navigation.js =====
+export const scrollToSection = (sectionId) => {
+  const target = document.getElementById(sectionId);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+
+===== .vercel\project.json =====
+{"projectId":"prj_c0EEFzAxbm5cpKAjt2YUXahcp9PT","orgId":"team_QGsrgrb4jXRetCgaX5XgsX98","projectName":"trini-yaad"}

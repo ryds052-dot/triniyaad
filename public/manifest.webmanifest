@@ -1,0 +1,12 @@
+{
+  "name": "Trini-Yaad",
+  "short_name": "Trini-Yaad",
+  "description": "Trinidadian street food at Dubwise Cafe, Kingston 6.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0A09",
+  "theme_color": "#0B0A09",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
