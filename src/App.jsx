@@ -6,7 +6,6 @@ import { useCart } from './hooks/useCart.js';
 const MenuSection = lazy(() => import('./components/MenuSection.jsx'));
 const GuestLove = lazy(() => import('./components/GuestLove.jsx'));
 const CourtyardVibe = lazy(() => import('./components/CourtyardVibe.jsx'));
-const Gallery = lazy(() => import('./components/Gallery.jsx'));
 const Reserve = lazy(() => import('./components/Reserve.jsx'));
 const VisitUs = lazy(() => import('./components/VisitUs.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
