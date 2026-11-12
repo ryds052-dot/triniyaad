@@ -18,8 +18,8 @@ const group = (id, label, description, items) => ({
 /* Menu mirrors the painted board outside the Dubwise courtyard. Nothing else. */
 export const menuGroups = [
   group(
-    'doubles',
-    'Doubles',
+  'Doubles & Combos',
+  'Doubles & Combos',
     'Chickpeas, served with tamarind chutney and cucumbers over two fried flatbreads.',
     [
       { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, chutney, cucumber.', options: true },

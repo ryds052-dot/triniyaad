@@ -13,12 +13,12 @@ const CourtyardVibe = () => {
     <section id="courtyard" className="courtyard-culture">
       <div className="culture-heading">
         <p className="eyebrow">82 Lady Musgrave Road · Sound system heritage</p>
-        <h2>Come for the doubles.<br /><em>Stay for the dub.</em></h2>
+        <h2>Hot doubles.<br /><em>Heavy bass.</em></h2>
         <p className="culture-subcopy">Tucked behind Kaya in Kingston 6, Trini-Yaad cooks inside the legendary Dubwise Cafe courtyard — where wooden speaker stacks, string lights, vinyl selectors and Jamaica&apos;s heaviest voices meet after dark.</p>
       </div>
       <div className="founder-callout">
-        <span>FOUNDER STORY</span>
-        <p>Misir Ramberran brought &quot;a little piece of Trinidad in the heart of Kingston&quot; to Lady Musgrave Road: vegan-friendly bases, optional chicken, shrimp, fish or curried goat, house-made shado beni and tamarind sauces, no preservatives.</p>
+        <span>MISSIR RAMBERRAN · FOUNDER</span>
+        <p>I brought a little piece of Trinidad to Lady Musgrave Road. Everything is made to order, no preservatives, no shortcuts. Vegan bases, chicken, shrimp, fish or goat. Come hungry.</p>
       </div>
 
       <div className="live-stage-layout">

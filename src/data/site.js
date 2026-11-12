@@ -31,7 +31,6 @@ export const site = {
 
 // 0 = Sunday. 630 = 10:30, 1320 = 22:00
 export const hours = [
-  { day: 1, open: 630, close: 1320 },
   { day: 2, open: 630, close: 1320 },
   { day: 3, open: 630, close: 1320 },
   { day: 4, open: 630, close: 1320 },

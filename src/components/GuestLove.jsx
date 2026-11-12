@@ -1,14 +1,14 @@
 import { wa } from '../data/site.js';
 
 const reviews = [
-  { quote: 'Pillowy barra, generous portions, and those addictive green and white garlic sauces — with reggae dancing in the Dubwise garden behind Kaya.', author: 'Google review', stars: 5 },
-  { quote: 'Real Trinidad doubles in Kingston. The shado beni is the whole point. Went back twice in one week.', author: 'Google review', stars: 5 },
-  { quote: 'Vegan-friendly and they never make it weird. Doubles with no pepper for my mother, heavy pepper for me.', author: 'Google review', stars: 4 },
+  { quote: 'The food was amazing and very affordable for so much food. This spot is definitely worth checking out!', author: 'Mellionie N · Google', stars: 5 },
+  { quote: 'This is the place to be in Kingston. Good music, food and drinks. We loved it sooo much!', author: 'Tabita G · Google', stars: 5 },
+    { quote: 'Don\'t waste your time anywhere else. Best place I visited for food, drinks and music in Kingston. The vibes are immaculate.', author: 'Jose L · Google', stars: 5 },
 ];
 
 const GuestLove = () => (
   <section className="guest-love" aria-label="Guest reviews">
-    <div className="guest-rating"><span>4.4★</span><small>KINGSTON FAVOURITE</small></div>
+    <div className="guest-rating"><span>4.7★</span><small>KINGSTON FAVOURITE</small></div>
     <div className="guest-quotes">
       {reviews.map((review) => (
         <blockquote key={review.quote}>
@@ -17,9 +17,6 @@ const GuestLove = () => (
         </blockquote>
       ))}
     </div>
-    <a className="catering-button magnetic" href={wa("Hi Trini-Yaad! I'm interested in catering and courtyard events.")} target="_blank" rel="noopener noreferrer">
-      Catering &amp; Courtyard Events <span aria-hidden="true">↗</span>
-    </a>
   </section>
 );
 
