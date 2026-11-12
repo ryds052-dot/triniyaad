@@ -56,25 +56,10 @@ const MenuSection = ({ cart }) => {
           ))}
         </div>
         <div className="menu-toolbar-right">
-          <div className="menu-filters" role="group" aria-label="Filter dishes">
-            {FILTERS.map((entry) => (
-              <button key={entry.id} type="button" className={filter === entry.id ? 'active' : ''} aria-pressed={filter === entry.id} onClick={() => setFilter(entry.id)}>{entry.label}</button>
-            ))}
-          </div>
-          <button className="board-button" type="button" onClick={() => setBoard(true)}>Full board</button>
         </div>
       </div>
 
       <div role="tabpanel" id={`panel-${group.id}`} aria-labelledby={`tab-${group.id}`} tabIndex={-1}>
-        {group.description && <p className="category-description">{group.description}</p>}
-        {group.items.some((item) => item.options) && (
-          <div className="sauce-strip" aria-label="House sauces">
-            <div><span className="sauce-dot green" aria-hidden="true" /><b>Signature Green</b><small>Shado beni sauce</small></div>
-            <div><span className="sauce-dot gold" aria-hidden="true" /><b>Sweet Tamarind</b><small>Tangy house chutney</small></div>
-            <div><span className="sauce-dot cream" aria-hidden="true" /><b>White Garlic</b><small>Creamy house sauce</small></div>
-            <div><span className="sauce-dot red" aria-hidden="true" /><b>Scotch Bonnet</b><small>Heat by request</small></div>
-          </div>
-        )}
 
         <div className="menu-grid">
           {visible.map((item, index) => {
@@ -116,13 +101,6 @@ const MenuSection = ({ cart }) => {
         </div>
         {visible.length === 0 && <p className="menu-empty">Nothing in this category matches that filter.</p>}
       </div>
-
-      {board && (
-        <div className="menu-modal" role="dialog" aria-modal="true" aria-label="Menu board" onMouseDown={() => setBoard(false)}>
-          <button className="modal-close" type="button" onClick={() => setBoard(false)} aria-label="Close menu board">×</button>
-          <img src="/images/board.jpg?v=1" width="1400" height="1000" loading="lazy" decoding="async" alt="Official Trini-Yaad menu board" />
-        </div>
-      )}
     </section>
   );
 };

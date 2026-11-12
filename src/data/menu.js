@@ -34,7 +34,7 @@ export const menuGroups = [
     'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.',
     [
       { id: 'bus-vegan', name: 'Veggie', price: 1500, tags: ['vegan'], description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.', options: true },
-      { id: 'bus-chicken', name: 'Chicken', price: 2000, tags: [], description: 'Curried or stew chicken.', options: true },
+      { id: 'bus-chicken', name: 'Chicken', price: 2000, tags: [], description: 'Curry or stew chicken folded through silky roti.', options: true },
       { id: 'bus-goat', name: 'Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
     ]
   ),
@@ -52,9 +52,9 @@ export const menuGroups = [
     'Sides',
     'Small plates and soup.',
     [
-      { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Hearty soup filled with corn and vegetables.' },
-      { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.' },
-      { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.' },
+      { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Hearty soup filled with corn and vegetables.', options: true },
+      { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.', options: true },
+      { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.', options: true },
     ]
   ),
 ];
