@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function Hero() {
   const videoRef = useRef(null);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -16,7 +17,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-v2" id="top">
+    <section className="hero-v2" id="top" ref={sectionRef}>
       <div className="hero-v2-copy">
         <span className="hero-v2-pill">
           <span className="hero-v2-dot" />
