@@ -960,3 +960,14 @@ html, body { overflow-x: hidden; }
 #menu p { font-size: 14px !important; line-height: 1.5 !important; }
 #menu .chip, #menu [class*="sauce"], #menu [class*="pepper"] { font-size: 12px !important; }
 #menu .menu-empty { font-size: 14px !important; }
+/* hero-contained */
+html, body { max-width: 100%; overflow-x: hidden; }
+@media (max-width: 767px) {
+  #hero { padding-bottom: 0 !important; overflow: hidden; }
+  #hero [class*="aspect-"] { width: 100% !important; max-width: 100% !important; margin-inline: auto; border-radius: 16px; }
+  #hero a[href="#menu"] { display: flex !important; width: calc(100% - 32px) !important; margin: 14px auto 0 !important; }
+  #hero a[href="#visit"] { display: flex !important; width: 100% !important; justify-content: center; margin-top: 4px; }
+  #hero h1 { letter-spacing: -0.07em; }
+  #menu { padding-top: 22px !important; }
+  #hero + section { margin-top: 0; }
+}
