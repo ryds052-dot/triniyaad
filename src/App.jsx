@@ -6,7 +6,6 @@ import { useCart } from './hooks/useCart.js';
 const MenuSection = lazy(() => import('./components/MenuSection.jsx'));
 const GuestLove = lazy(() => import('./components/GuestLove.jsx'));
 const CourtyardVibe = lazy(() => import('./components/CourtyardVibe.jsx'));
-const Reserve = lazy(() => import('./components/Reserve.jsx'));
 const VisitUs = lazy(() => import('./components/VisitUs.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
 const CartDrawer = lazy(() => import('./components/CartDrawer.jsx'));
@@ -36,7 +35,6 @@ const App = () => {
         <Suspense fallback={<Fallback />}><GuestLove /></Suspense>
         <Suspense fallback={<Fallback />}><CourtyardVibe /></Suspense>
         <Suspense fallback={<Fallback />}></Suspense>
-        <Suspense fallback={<Fallback />}><Reserve /></Suspense>
         <Suspense fallback={<Fallback />}><VisitUs /></Suspense>
         <Suspense fallback={<Fallback />}><Footer /></Suspense>
       </main>

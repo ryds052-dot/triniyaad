@@ -1126,3 +1126,6 @@ html, body { overflow-x: hidden !important; }
 .hero-title .line { display:block !important; }
 .hero-title .gold { margin-left:clamp(14px,4.5vw,30px) !important; }
 .hero-copy { font-size:15px !important; line-height:1.55 !important; max-width:32ch !important; color:rgba(255,255,255,.62) !important; }
+/* CART-REVEAL */
+.mobile-checkout-dock { z-index:60 !important; backdrop-filter:blur(20px) saturate(1.5) !important; -webkit-backdrop-filter:blur(20px) saturate(1.5) !important; background:rgba(14,12,10,.9) !important; border-top:1px solid rgba(245,184,0,.28) !important; padding-bottom:calc(10px + env(safe-area-inset-bottom)) !important; }
+.mobile-checkout-dock .dock-checkout { background:#f5b800 !important; color:#0a0a0a !important; font-weight:800 !important; border-radius:999px !important; }

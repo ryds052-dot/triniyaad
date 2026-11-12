@@ -38,7 +38,7 @@ const Navbar = ({ cartCount, onOpenCart }) => {
           </button>
         ))}
         <button className="nav-order" type="button" onClick={(event) => go(event, 'menu')}>Order food</button>
-        <button className="nav-cart" type="button" onClick={onOpenCart} aria-label={`Open order tray, ${cartCount} items`}>
+        <button className="nav-cart" type="button" onClick={onOpenCart} aria-label={`Open cart, ${cartCount} items`}>
           Tray{cartCount > 0 && <b>{cartCount}</b>}
         </button>
       </nav>

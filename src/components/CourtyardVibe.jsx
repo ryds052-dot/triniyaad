@@ -58,19 +58,6 @@ const CourtyardVibe = () => {
           ))}
         </div>
       </div>
-
-      <div className="nights">
-        <p className="eyebrow">Weekly rhythm</p>
-        <ul>
-          {nights.map((night) => (
-            <li key={night.name}>
-              <b>{dayNames[night.day]}</b>
-              <span>{night.name}</span>
-              <small>{night.detail}</small>
-            </li>
-          ))}
-        </ul>
-      </div>
     </section>
   );
 };
