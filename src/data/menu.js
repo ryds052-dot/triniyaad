@@ -48,8 +48,8 @@ export const menuGroups = [
     ]
   ),
   group(
-    'sides',
-    'Sides',
+  'Snacks & Soup',
+  'Snacks & Soup',
     'Small plates and soup.',
     [
       { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Corn and vegetables.', options: true },

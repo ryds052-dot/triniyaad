@@ -35,7 +35,7 @@ const MenuSection = ({ cart }) => {
       <div className="section-heading">
         <p className="eyebrow">The Food Line</p>
         <h2>Choose your <em>island mood.</em></h2>
-        <a href="/images/board.jpg?v=1" target="_blank" rel="noopener" className="board-link">The painted board <span aria-hidden="true">↗</span></a>
+        <a href="/images/board.jpg?v=1" target="_blank" rel="noopener" className="board-preview"><img src="/images/board.jpg?v=1" alt="The hand-painted Trini-Yaad menu board" loading="lazy" decoding="async" width="1400" height="1000" /><span className="board-preview__label">The painted board <span aria-hidden="true">↗</span></span></a>
       </div>
 
       <div className="menu-toolbar">

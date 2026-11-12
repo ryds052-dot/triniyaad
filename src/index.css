@@ -1111,3 +1111,8 @@ html, body { overflow-x: hidden !important; }
 .stepper { display:flex !important; align-items:center !important; gap:4px !important; height:40px !important; border:1px solid rgba(245,184,0,.28) !important; border-radius:999px !important; padding:0 3px !important; margin-top:10px !important; }
 .stepper button { width:32px !important; height:32px !important; border:0 !important; background:none !important; color:#f5b800 !important; font-size:17px !important; }
 .stepper output { width:22px !important; text-align:center !important; font-size:13px !important; font-weight:800 !important; }
+/* BOARD-PREVIEW */
+.board-preview { display:block !important; position:relative !important; margin:16px 0 6px !important; border-radius:14px !important; overflow:hidden !important; border:1px solid rgba(245,184,0,.22) !important; }
+.board-preview img { display:block !important; width:100% !important; height:150px !important; object-fit:cover !important; object-position:center 35% !important; }
+.board-preview__label { position:absolute !important; inset:auto 0 0 0 !important; padding:10px 12px !important; font-size:11px !important; font-weight:800 !important; letter-spacing:.16em !important; text-transform:uppercase !important; color:#f5b800 !important; background:linear-gradient(to top, rgba(10,9,7,.94), rgba(10,9,7,0)) !important; }
+@media (min-width:768px) { .board-preview img { height:190px !important; } }
