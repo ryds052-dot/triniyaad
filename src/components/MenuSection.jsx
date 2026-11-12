@@ -8,7 +8,7 @@ const FILTERS = [
 ];
 
 const MenuSection = ({ cart }) => {
-  const [active, setActive] = useState('doubles');
+  const [active, setActive] = useState(null);
   const [filter, setFilter] = useState('all');
   const [board, setBoard] = useState(false);
   const tabs = useRef(null);
@@ -48,7 +48,7 @@ const MenuSection = ({ cart }) => {
               aria-selected={active === entry.id}
               aria-controls={`panel-${entry.id}`}
               tabIndex={active === entry.id ? 0 : -1}
-              onClick={() => setActive(entry.id)}
+              onClick={() => setActive(active === entry.id ? null : entry.id)}
               onKeyDown={(event) => onTabKey(event, index)}
             >
               <span>{entry.label}</span><small>{entry.eyebrow}</small>
