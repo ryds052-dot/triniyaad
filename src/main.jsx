@@ -14,3 +14,4 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
+import './order-mount.jsx'

@@ -65,7 +65,7 @@ const Hero = () => {
           <div className="hero-orbit" aria-hidden="true"><span>TRINI</span><span>YAAD</span></div>
           <div className="hero-frame">
             <img className="hero-image" src="/images/photo-3.webp?v=3" width="520" height="684" fetchPriority="high" decoding="async" alt="Authentic Trini doubles with channa, cucumber and Shado Beni" />
-            <video className="hero-video" poster="/images/photo-3.webp?v=3" autoPlay muted loop playsInline preload="metadata">
+            <video className="hero-video" poster="/images/photo-3.webp?v=3" autoPlay muted loop playsInline preload="metadata" onCanPlay={(e) => e.currentTarget.classList.add("is-ready")}>
           <source src="/hero-vibe.mp4?v=2" type="video/mp4" />
         </video>
             <span className="hero-image-vignette" aria-hidden="true" />
