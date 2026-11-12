@@ -25,7 +25,7 @@ const Reserve = () => {
         <p className="eyebrow">Courtyard tables</p>
         <h2>Hold a table <em>for the session.</em></h2>
         <p>Tables are first-come on normal nights. For Friday Shellingz and Saturday Yard Lime, send a request and we&apos;ll hold space near the stage.</p>
-        <p className="reserve-note">Requests are confirmed on WhatsApp — this isn&apos;t a live booking system.</p>
+        <p className="reserve-note">We confirm on WhatsApp. Tables are held in order of request.</p>
       </div>
       <form className="reserve-form" onSubmit={(event) => event.preventDefault()}>
         <label>Name<input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" required /></label>
