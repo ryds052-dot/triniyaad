@@ -980,3 +980,13 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .hero-actions { width: 100% !important; }
   .hero-actions a, .hero-actions button { width: 100% !important; margin: 0 !important; }
 }
+
+/* hero-vw */
+@media (max-width: 767px) {
+  #hero, #hero > div, .hero-visual { width: 100% !important; max-width: 100% !important; }
+  .hero-visual { margin: 0 !important; padding: 0 !important; }
+  .hero-frame { width: calc(100% - 40px) !important; max-width: calc(100% - 40px) !important; margin: 0 20px !important; }
+  .hero-actions { width: calc(100% - 40px) !important; margin: 0 20px !important; }
+  .hero-actions > * { width: 100% !important; }
+  .hero-title span, #hero h1 span { display: block; }
+}
