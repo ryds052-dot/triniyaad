@@ -15,16 +15,17 @@ const group = (id, label, description, items) => ({
   eyebrow: rangeLabel(items),
 });
 
+/* Menu mirrors the painted board outside the Dubwise courtyard. Nothing else. */
 export const menuGroups = [
   group(
     'doubles',
     'Doubles',
     'Chickpeas, served with tamarind chutney and cucumbers over two fried flatbreads.',
     [
-      { id: 'dbl-vegan', name: 'Doubles — Vegan', price: 500, tags: ['vegan'], description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', options: true },
-      { id: 'dbl-chicken', name: 'Doubles — w/ Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
+      { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', options: true },
+      { id: 'dbl-chicken', name: 'Doubles — w/ Curry Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
       { id: 'dbl-jerk', name: 'Jerk Chicken Doubles', price: 1200, tags: [], description: 'Jerk chicken over two fried flatbreads with pineapple chutney.', options: true },
-      { id: 'dbl-goat', name: 'Doubles — w/ Curried Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
+      { id: 'dbl-goat', name: 'Doubles — w/ Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
     ]
   ),
   group(
@@ -32,41 +33,28 @@ export const menuGroups = [
     'Buss Up Shut',
     'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.',
     [
-      { id: 'bus-vegan', name: 'Buss Up Shut — Vegan Mix', price: 1500, tags: ['vegan'], description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.', options: true },
+      { id: 'bus-vegan', name: 'Buss Up Shut — Veggie', price: 1500, tags: ['vegan'], description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.', options: true },
       { id: 'bus-chicken', name: 'Buss Up Shut — w/ Chicken', price: 2000, tags: [], description: 'Curried or stew chicken.', options: true },
-      { id: 'bus-goat', name: 'Buss Up Shut — w/ Curried Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
-      { id: 'bus-oxtail', name: 'Buss Up Shut — w/ Oxtail', price: 2500, tags: [], description: 'With oxtail.', options: true },
+      { id: 'bus-goat', name: 'Buss Up Shut — w/ Curry Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
     ]
   ),
   group(
-    'fried-bake',
+    'bake',
     'Bake',
     'Fluffy bake, fresh salad and our signature house sauces.',
     [
-      { id: 'bake-veg', name: 'Bake and Veg', price: 800, tags: ['vegan'], description: 'Curried chickpeas, fluffy bake, fresh salad and signature house sauces.', options: true },
-      { id: 'bake-chicken', name: 'Bake and Chicken', price: 1000, tags: [], description: 'Curried or stewed chicken, fluffy bake, fresh salad and signature house sauces.', options: true },
-      { id: 'bake-shark', name: 'Bake and Shark', price: 1200, tags: ['fish'], description: 'Golden fried shark, fluffy bake, fresh salad and signature house sauces.', options: true },
-      { id: 'bake-shrimp', name: 'Bake and Shrimp', price: 1500, tags: ['shellfish'], description: 'Golden fried shrimp, fluffy bake, fresh salad and signature house sauces.', options: true },
+      { id: 'bake-shark', name: "Bake & 'Shark'", price: 1200, tags: ['fish'], description: 'Golden fried shark, fluffy bake, fresh salad and signature house sauces.', options: true },
+      { id: 'bake-shrimp', name: 'Bake & Shrimp', price: 1500, tags: ['shellfish'], description: 'Golden fried shrimp, fluffy bake, fresh salad and signature house sauces.', options: true },
     ]
   ),
   group(
-    'slaw-dem-fry-dem',
-    'Slaw Dem Fry Dem',
-    'Golden crispy fries and cool creamy coleslaw with your choice of protein.',
-    [
-      { id: 'slaw-bbq', name: 'Slaw Dem Fry Dem — w/ BBQ Chicken', price: 1500, tags: [], description: 'Golden crispy fries and cool creamy coleslaw with BBQ chicken.', options: true },
-      { id: 'slaw-fish', name: 'Slaw Dem Fry Dem — w/ Fried Fish', price: 2500, tags: ['fish'], description: 'Golden crispy fries and cool creamy coleslaw with fried fish.', options: true },
-    ]
-  ),
-  group(
-    'others',
+    'sides',
     'Sides',
     'Small plates and soup.',
     [
       { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Hearty soup filled with corn and vegetables.' },
-      { id: 'aloo-pies', name: 'Aloo Pies', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.' },
+      { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.' },
       { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.' },
-      { id: 'fries', name: 'Fries', price: 500, tags: ['vegan'], description: 'Freshly fried, lightly salted.' },
     ]
   ),
 ];
