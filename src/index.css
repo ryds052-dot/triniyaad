@@ -625,3 +625,191 @@ p { text-wrap: pretty; }
   }
   .menu-toolbar{ flex-direction: column !important; gap: 10px; }
 }
+
+/* ================= SEAMLESS LAYER =================
+   Loaded last. One rhythm across every section and
+   every width. Nothing absolute, nothing overlapping.
+   ================================================== */
+
+:root{
+  --gutter: 20px;
+  --sect: 64px;
+  --ease: cubic-bezier(.22,1,.36,1);
+}
+@media (min-width: 901px){
+  :root{ --gutter: 5vw; --sect: 112px; }
+}
+
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+/* gutters and rhythm */
+.menu-section,
+.signature-section,
+.courtyard-culture,
+.gallery-section,
+.reserve-section,
+.visit-section{
+  padding: var(--sect) var(--gutter) !important;
+}
+
+/* hairline between sections, inset so it reads as a rule not a border */
+.menu-section,
+.gallery-section,
+.reserve-section,
+.visit-section,
+.courtyard-culture{
+  border-top: 1px solid rgba(255,255,255,.07) !important;
+}
+
+/* anchors clear the fixed nav */
+#hero, #menu, #courtyard, #gallery, #reserve, #visit{ scroll-margin-top: 76px; }
+
+/* hero: single composition at every width */
+.hero{
+  position: relative !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+.hero-grid{
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+  gap: 22px !important;
+  padding: 92px var(--gutter) 40px !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+@media (min-width: 901px){
+  .hero-grid{
+    display: grid !important;
+    grid-template-columns: 52% 48% !important;
+    align-items: center;
+    gap: 48px !important;
+    padding: 128px var(--gutter) 72px !important;
+  }
+  .hero-visual{ order: 2; }
+  .hero-copy-column{ order: 1; }
+}
+.hero-visual{
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.hero-frame{
+  position: relative !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  aspect-ratio: 3 / 4 !important;
+  margin: 0 auto !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: #0b0a09;
+}
+.hero-image,
+.hero-video{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+.hero-image{ z-index: 1; }
+.hero-video{ z-index: 2; opacity: 1 !important; }
+.hero-image-vignette{ z-index: 3; }
+
+/* ribbon sits in flow, never rotated over content */
+.kinetic-ribbon{
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  transform: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* typography rhythm */
+.hero-title{ font-size: clamp(52px, 15vw, 92px) !important; line-height: .84 !important; }
+.hero-title .gold{ margin-left: clamp(18px, 6vw, 64px) !important; }
+.hero-copy{ max-width: 34ch !important; }
+.section-heading h2,
+.culture-heading h2{ font-size: clamp(34px, 8vw, 64px) !important; margin: 14px 0 26px !important; }
+
+/* menu toolbar and tabs: one row, scrollable, never clipped */
+.menu-toolbar{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  padding-bottom: 10px;
+  margin-bottom: 22px !important;
+}
+@media (min-width: 901px){
+  .menu-toolbar{ flex-direction: row !important; align-items: flex-end !important; }
+}
+.menu-tabs{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+  overflow-x: auto !important;
+  scroll-snap-type: x proximity;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.menu-tabs::-webkit-scrollbar{ display: none; }
+.menu-tabs button{
+  flex: 0 0 auto !important;
+  min-width: auto !important;
+  padding: 10px 16px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 999px !important;
+  white-space: nowrap;
+  transition: background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.menu-tabs button small{ display: none !important; }
+.menu-tabs button.active{
+  border-color: #f5b800 !important;
+  background: rgba(245,184,0,.12) !important;
+  color: #fff !important;
+}
+
+/* dish rows: consistent grid at every width */
+.dish-card{
+  grid-template-columns: 40px 1fr !important;
+  gap: 10px 14px;
+  padding: 20px 0 !important;
+  align-items: start !important;
+}
+.dish-order{
+  grid-column: 1 / -1 !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  gap: 10px !important;
+  padding: 0 0 4px 40px !important;
+}
+@media (min-width: 901px){
+  .dish-card{ grid-template-columns: 64px 1fr 260px !important; align-items: center !important; }
+  .dish-order{ grid-column: auto !important; padding: 0 !important; }
+}
+
+/* gallery: even gaps, no orphan tiles */
+.gallery-grid{ gap: 10px !important; }
+.gallery-item img{ width: 100%; height: 100%; object-fit: cover; }
+
+/* footer: in flow, left aligned */
+.footer-meta{
+  position: static !important;
+  margin-top: 26px;
+  text-align: left !important;
+}
+.site-footer{ padding: var(--sect) var(--gutter) 48px !important; }
