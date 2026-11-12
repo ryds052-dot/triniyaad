@@ -37,7 +37,7 @@ const MenuSection = ({ cart }) => {
       </div>
 
       <button className="mobile-menu-board-card" type="button" onClick={() => setBoard(true)} aria-label="Open the full menu board">
-        <img src="/images/photo-4.webp?v=3" width="1400" height="1000" loading="lazy" decoding="async" alt="" />
+        <img src="/images/board.jpg?v=1" width="1400" height="1000" loading="lazy" decoding="async" alt="" />
         <span className="mobile-menu-board-shade" aria-hidden="true" />
         <span className="mobile-menu-board-copy"><small>FULL MENU</small><strong>View the complete board</strong></span>
         <span className="mobile-menu-board-arrow" aria-hidden="true">↗</span>
@@ -127,7 +127,7 @@ const MenuSection = ({ cart }) => {
       {board && (
         <div className="menu-modal" role="dialog" aria-modal="true" aria-label="Menu board" onMouseDown={() => setBoard(false)}>
           <button className="modal-close" type="button" onClick={() => setBoard(false)} aria-label="Close menu board">×</button>
-          <img src="/images/photo-4.webp?v=3" width="1400" height="1000" loading="lazy" decoding="async" alt="Official Trini-Yaad menu board" />
+          <img src="/images/board.jpg?v=1" width="1400" height="1000" loading="lazy" decoding="async" alt="Official Trini-Yaad menu board" />
         </div>
       )}
     </section>

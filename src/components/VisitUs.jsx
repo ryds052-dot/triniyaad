@@ -29,7 +29,13 @@ const VisitUs = () => (
         </dl>
       </div>
 
-      <div className="visit-order">
+        <figure className="visit-board">
+          <a href="/images/board.jpg?v=1" target="_blank" rel="noopener">
+            <img src="/images/board.jpg?v=1" width="1600" height="1200" loading="lazy" decoding="async" alt="Hand-painted Trini-Yaad menu board outside the Dubwise courtyard" />
+          </a>
+          <figcaption>The board, hand-painted outside the courtyard.</figcaption>
+        </figure>
+        <div className="visit-order">
         <b>How to order</b>
         <p><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp / call {site.phoneDisplay}</a></p>
         <p><a href={`https://instagram.com/${site.instagram}`} target="_blank" rel="noopener noreferrer">Instagram DM @{site.instagram.toUpperCase()}</a></p>

@@ -17,7 +17,7 @@ export const galleryImages = [
   { src: '/images/photo-3.webp?v=3', alt: 'Trini doubles with channa, cucumber and shado beni', caption: 'Doubles, straight from the fryer' },
   { src: '/images/photo-5.webp?v=3', alt: 'Buss up shut platter with curry and choka', caption: 'Buss up shut' },
   { src: '/images/photo-2.webp?v=3', alt: 'Dubwise Cafe courtyard stall at dusk', caption: 'The courtyard, Kingston 6' },
-  { src: '/images/photo-4.webp?v=3', alt: 'Trini-Yaad menu board', caption: 'The board' },
+  { src: '/images/board.jpg?v=1', alt: 'Trini-Yaad menu board', caption: 'The board' },
   { src: '/images/doubles-reel.webp?v=3', alt: 'Close-up of doubles being assembled', caption: 'Barra, channa, sauce' },
   { src: '/images/photo-1.webp?v=3', alt: 'Trini-Yaad at Dubwise Cafe signage', caption: 'Trini-Yaad × Dubwise' },
 ];
