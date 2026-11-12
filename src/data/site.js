@@ -44,7 +44,6 @@ export const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
 export const navLinks = [
   { id: 'menu', label: 'Menu' },
   { id: 'courtyard', label: 'The Courtyard' },
-  { id: 'gallery', label: 'Gallery' },
   { id: 'visit', label: 'Visit Us' },
 ];
 
