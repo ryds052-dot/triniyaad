@@ -35,6 +35,7 @@ const MenuSection = ({ cart }) => {
       <div className="section-heading">
         <p className="eyebrow">The Food Line</p>
         <h2>Choose your <em>island mood.</em></h2>
+        <a href="/images/board.jpg?v=1" target="_blank" rel="noopener" className="board-link">The painted board <span aria-hidden="true">↗</span></a>
       </div>
 
       <div className="menu-toolbar">

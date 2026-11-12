@@ -1095,3 +1095,19 @@ html, body { overflow-x: hidden !important; }
   .menu-tabs { position:static !important; }
   .menu-tabs button { min-width:180px !important; border-radius:0 !important; border:0 !important; border-bottom:2px solid transparent !important; padding:12px 0 !important; }
 }
+/* PRICE-PREMIUM */
+.dish-order > strong { font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:#f5b800 !important; font-weight:800 !important; font-size:15px !important; white-space:nowrap; }
+.dish-order > strong small { color:rgba(255,255,255,.4) !important; font-size:9px !important; letter-spacing:.1em; margin-left:2px; }
+.dish-main h3 { color:#fff !important; }
+@media (min-width:768px) { .dish-card { grid-template-columns:64px minmax(0,1fr) 168px !important; align-items:start !important; } .dish-order { padding-top:2px !important; } }
+.stepper { display:flex !important; align-items:center !important; gap:4px !important; height:40px !important; border:1px solid rgba(245,184,0,.28) !important; border-radius:999px !important; padding:0 3px !important; margin-top:10px !important; }
+.stepper button { width:32px !important; height:32px !important; border:0 !important; background:none !important; color:#f5b800 !important; font-size:17px !important; }
+.stepper output { width:22px !important; text-align:center !important; font-size:13px !important; font-weight:800 !important; font-variant-numeric:tabular-nums; }
+.board-link { display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:11px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:#f5b800; text-decoration:none; border-bottom:1px solid rgba(245,184,0,.35); padding-bottom:3px; }
+/* PRICE-PREMIUM */
+.dish-order > strong { font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:#f5b800 !important; font-weight:800 !important; font-size:15px !important; white-space:nowrap; }
+.dish-order > strong small { color:rgba(255,255,255,.4) !important; font-size:9px !important; letter-spacing:.1em; }
+@media (min-width:768px) { .dish-card { grid-template-columns:64px minmax(0,1fr) 168px !important; align-items:start !important; } }
+.stepper { display:flex !important; align-items:center !important; gap:4px !important; height:40px !important; border:1px solid rgba(245,184,0,.28) !important; border-radius:999px !important; padding:0 3px !important; margin-top:10px !important; }
+.stepper button { width:32px !important; height:32px !important; border:0 !important; background:none !important; color:#f5b800 !important; font-size:17px !important; }
+.stepper output { width:22px !important; text-align:center !important; font-size:13px !important; font-weight:800 !important; }
