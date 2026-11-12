@@ -1,79 +1,56 @@
-import { useEffect, useRef } from 'react';
-import { scrollToSection } from '../utils/navigation.js';
-import { useOpenStatus } from '../hooks/useOpenStatus.js';
+import { useEffect, useRef } from "react";
 
-const Hero = () => {
-  const root = useRef(null);
-  const visual = useRef(null);
-  const status = useOpenStatus();
+export default function Hero() {
+  const videoRef = useRef(null);
 
   useEffect(() => {
-    let context;
-    if (window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
-    const frame = window.requestAnimationFrame(() => {
-      const idle = window.requestIdleCallback || ((cb) => window.setTimeout(cb, 180));
-      idle(() => {
-        Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([{ default: gsap }, { ScrollTrigger }]) => {
-          gsap.registerPlugin(ScrollTrigger);
-          if (!root.current) return;
-          context = gsap.context(() => {
-            gsap.to('.hero-image', {
-              yPercent: -10, scale: 1.08, ease: 'none',
-              scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
-            });
-            gsap.to('.hero-orbit', {
-              rotate: 12, y: -30,
-              scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 },
-            });
-          }, root);
-        });
-      });
-    });
-    return () => { window.cancelAnimationFrame(frame); if (context) context.revert(); };
+    const v = videoRef.current;
+    if (!v) return;
+    const play = () => {
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    };
+    play();
+    v.addEventListener("canplay", play, { once: true });
+    return () => v.removeEventListener("canplay", play);
   }, []);
 
-  const tilt = (event) => {
-    if (!visual.current || window.matchMedia('(pointer: coarse)').matches) return;
-    const rect = visual.current.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    visual.current.style.transform = `perspective(900px) rotateX(${y * -6}deg) rotateY(${x * 6}deg)`;
-  };
-  const resetTilt = () => {
-    if (visual.current) visual.current.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
-  };
-
   return (
-    <section id="hero" className="hero" ref={root}>
-      <div className="hero-ambient ambient-red" aria-hidden="true" />
-      <div className="hero-ambient ambient-green" aria-hidden="true" />
-      <div className="hero-grid">
-        <div className="hero-copy-column">
-          <div className={status.open ? 'courtyard-status is-open' : 'courtyard-status'}>
-            <span className="status-dot" aria-hidden="true" />
-            <b>{status.text || 'Live at Dubwise Courtyard'}</b>
-            <small>{status.clock} KINGSTON</small>
-          </div>
-          <h1 className="hero-title"><span className="line">TRINI</span><span className="line gold">YAAD</span></h1>
-          <p className="hero-copy">Doubles, buss up shut and bake &amp; shark, cooked in the Dubwise courtyard. From $500 JMD.</p>
-          <div className="hero-actions">
-            <button type="button" className="button button-primary magnetic" onClick={() => scrollToSection('menu')}>Order now · from $500 <span aria-hidden="true">↗</span></button>
-            <button type="button" className="button button-ghost magnetic" onClick={() => scrollToSection('visit')}>Find the courtyard</button>
-          </div>
+    <section className="hero-v2" id="top">
+      <div className="hero-v2-copy">
+        <span className="hero-v2-pill">
+          <span className="hero-v2-dot" />
+          Open now · 82 Lady Musgrave Rd
+        </span>
+
+        <h1 className="hero-v2-title">
+          <span className="hero-v2-line">TRINI</span>
+          <span className="hero-v2-line hero-v2-line-2">YAAD</span>
+        </h1>
+
+        <p className="hero-v2-sub">
+          Doubles, curry and jerk straight off the grill — served hot in the Dubwise Reggae Courtyard.
+        </p>
+
+        <div className="hero-v2-actions">
+          <a className="hero-v2-cta" href="#menu">Order now · from $500</a>
+          <a className="hero-v2-call" href="tel:+18763520139">Call the kitchen</a>
         </div>
-        <div className="hero-visual" ref={visual} onMouseMove={tilt} onMouseLeave={resetTilt}>
-          <div className="hero-orbit" aria-hidden="true"><span>TRINI</span><span>YAAD</span></div>
-          <div className="hero-frame">
-            <img className="hero-image" src="/images/hero-courtyard.jpg?v=1" width="520" height="684" fetchPriority="high" decoding="async" alt="Doubles with channa, cucumber and shado beni" />
-            <video className="hero-video" poster="/images/hero-courtyard.jpg?v=1" autoPlay muted loop playsInline preload="metadata" onCanPlay={(e) => e.currentTarget.classList.add("is-ready")}>
-          <source src="/hero-vibe.mp4?v=2" type="video/mp4" />
-        </video>
-            <span className="hero-image-vignette" aria-hidden="true" />
-          </div>
-        </div>
+      </div>
+
+      <div className="hero-v2-card">
+        <video
+          ref={videoRef}
+          className="hero-video"
+          src="/images/"
+          poster="/images/"
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="metadata"
+        />
       </div>
     </section>
   );
-};
-
-export default Hero;
+}
