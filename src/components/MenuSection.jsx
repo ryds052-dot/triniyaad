@@ -61,8 +61,8 @@ const MenuSection = ({ cart }) => {
 
       <div role="tabpanel" id={`panel-${group.id}`} aria-labelledby={`tab-${group.id}`} tabIndex={-1}>
 
-        <div className="menu-grid">
-          {visible.map((item, index) => {
+        <div className="menu-grid">{shown.map((entry) => (<div key={entry.id} className="menu-group"><div className="menu-group-head"><h3>{entry.label}</h3><small>{entry.eyebrow}</small></div>
+          {entry.items.map((item, index) => {
             const line = cart.lines[item.id];
             const qty = line?.qty || 0;
             return (
@@ -97,9 +97,8 @@ const MenuSection = ({ cart }) => {
                 </div>
               </article>
             );
-          })}
-        </div>
-        {visible.length === 0 && <p className="menu-empty">Nothing in this category matches that filter.</p>}
+            })}</div>))}</div>
+          {shown.every((entry) => entry.items.length === 0) && <p className="menu-empty">Nothing in this category matches that filter.</p>}
       </div>
     </section>
   );

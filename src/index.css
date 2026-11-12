@@ -990,3 +990,8 @@ html, body { max-width: 100%; overflow-x: hidden; }
   .hero-actions > * { width: 100% !important; }
   .hero-title span, #hero h1 span { display: block; }
 }
+
+.menu-group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 26px 0 10px; border-top: 1px solid rgba(245,184,0,.16); }
+.menu-group-head h3 { font-size: 12px !important; letter-spacing: .18em; text-transform: uppercase; color: #f5b800; }
+.menu-group-head small { font-size: 12px; color: rgba(255,255,255,.45); }
+.menu-group:first-child .menu-group-head { border-top: 0; }
