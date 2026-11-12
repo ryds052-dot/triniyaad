@@ -904,3 +904,14 @@ html{ scroll-behavior: smooth; }
   object-position: center;
 }
 .hero-frame .hero-image { position: absolute; inset: 0; }
+/* iphone-perfect */
+html, body { overflow-x: hidden; }
+* { -webkit-tap-highlight-color: transparent; }
+#hero { min-height: 100svh; }
+.chip { min-height: 44px; }
+@media (max-width: 767px) {
+  .mobile-checkout-dock { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
+  .cart-fab { bottom: calc(86px + env(safe-area-inset-bottom)); }
+  input, select, textarea { font-size: 16px; }
+  #visit { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+}
