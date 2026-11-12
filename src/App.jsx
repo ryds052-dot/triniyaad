@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import { useCart } from './hooks/useCart.js';
+import AddToast from './components/AddToast.jsx';
 
 const MenuSection = lazy(() => import('./components/MenuSection.jsx'));
 const GuestLove = lazy(() => import('./components/GuestLove.jsx'));
@@ -30,6 +31,7 @@ const App = () => {
         <div className="court-yard-glow glow-red" aria-hidden="true" />
         <div className="court-yard-glow glow-green" aria-hidden="true" />
         <Navbar cartCount={cart.count} onOpenCart={() => cart.setOpen(true)} />
+      <AddToast cart={cart} />
         <Hero />
         <Suspense fallback={<Fallback />}><MenuSection cart={cart} /></Suspense>
         <Suspense fallback={<Fallback />}><GuestLove /></Suspense>
