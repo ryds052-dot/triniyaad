@@ -55,9 +55,9 @@ const Hero = () => {
             <small>{status.clock} KINGSTON</small>
           </div>
           <h1 className="hero-title"><span className="line">TRINI</span><span className="line gold">YAAD</span></h1>
-          <p className="hero-copy">Street food with island soul. Doubles, buss up shut, fried bake and bold Trini flavours in the heart of Kingston.</p>
+          <p className="hero-copy">Doubles, buss up shut and bake &amp; shark, cooked in the Dubwise courtyard. From $500 JMD.</p>
           <div className="hero-actions">
-            <button type="button" className="button button-primary magnetic" onClick={() => scrollToSection('menu')}>Explore the menu <span aria-hidden="true">↗</span></button>
+            <button type="button" className="button button-primary magnetic" onClick={() => scrollToSection('menu')}>Order now · from $500 <span aria-hidden="true">↗</span></button>
             <button type="button" className="button button-ghost magnetic" onClick={() => scrollToSection('visit')}>Find the courtyard</button>
           </div>
         </div>

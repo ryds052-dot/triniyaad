@@ -22,10 +22,10 @@ export const menuGroups = [
     'Doubles',
     'Chickpeas, served with tamarind chutney and cucumbers over two fried flatbreads.',
     [
-      { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', options: true },
-      { id: 'dbl-goat', name: 'Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
-      { id: 'dbl-chicken', name: 'Curry Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
-      { id: 'dbl-jerk', name: 'Jerk Chicken', price: 1200, tags: [], description: 'Jerk chicken over two fried flatbreads with pineapple chutney.', options: true },
+      { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, chutney, cucumber.', options: true },
+      { id: 'dbl-goat', name: 'Curry Goat', price: 1500, tags: [], description: 'Curried goat.', options: true },
+      { id: 'dbl-chicken', name: 'Curry Chicken', price: 1000, tags: [], description: 'Curry or stew chicken.', options: true },
+      { id: 'dbl-jerk', name: 'Jerk Chicken', price: 1200, tags: [], description: 'Jerk chicken, pineapple chutney.', options: true },
     ]
   ),
   group(
@@ -33,9 +33,9 @@ export const menuGroups = [
     'Buss Up Shut',
     'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.',
     [
-      { id: 'bus-vegan', name: 'Veggie', price: 1500, tags: ['vegan'], description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.', options: true },
-      { id: 'bus-chicken', name: 'Chicken', price: 2000, tags: [], description: 'Curry or stew chicken folded through silky roti.', options: true },
-      { id: 'bus-goat', name: 'Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
+      { id: 'bus-vegan', name: 'Veggie', price: 1500, tags: ['vegan'], description: 'Vegetables, pumpkin talkari, chickpeas.', options: true },
+      { id: 'bus-chicken', name: 'Chicken', price: 2000, tags: [], description: 'Curry or stew chicken, silky roti.', options: true },
+      { id: 'bus-goat', name: 'Goat', price: 2500, tags: [], description: 'Curried goat, silky roti.', options: true },
     ]
   ),
   group(
@@ -43,8 +43,8 @@ export const menuGroups = [
     'Bake',
     'Fluffy bake, fresh salad and our signature house sauces.',
     [
-      { id: 'bake-shark', name: "Bake & 'Shark'", price: 1200, tags: ['fish'], description: 'Golden fried shark, fluffy bake, fresh salad and signature house sauces.', options: true },
-      { id: 'bake-shrimp', name: 'Bake & Shrimp', price: 1500, tags: ['shellfish'], description: 'Golden fried shrimp, fluffy bake, fresh salad and signature house sauces.', options: true },
+      { id: 'bake-shark', name: "Bake & 'Shark'", price: 1200, tags: ['fish'], description: 'Fried shark, bake, salad, house sauce.', options: true },
+      { id: 'bake-shrimp', name: 'Bake & Shrimp', price: 1500, tags: ['shellfish'], description: 'Fried shrimp, bake, salad, house sauce.', options: true },
     ]
   ),
   group(
@@ -52,9 +52,9 @@ export const menuGroups = [
     'Sides',
     'Small plates and soup.',
     [
-      { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Hearty soup filled with corn and vegetables.', options: true },
-      { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.', options: true },
-      { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.', options: true },
+      { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Corn and vegetables.', options: true },
+      { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Chickpeas, potato, tamarind.', options: true },
+      { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, tamarind.', options: true },
     ]
   ),
 ];

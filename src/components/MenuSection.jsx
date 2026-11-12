@@ -13,7 +13,8 @@ const MenuSection = ({ cart }) => {
   const [board, setBoard] = useState(false);
   const tabs = useRef(null);
 
-  const shown = active ? menuGroups.filter((e) => e.id === active) : menuGroups;
+  const shown = active ? menuGroups.filter((e) => e.id === active) : menuGroups;
+  const group = shown[0] || menuGroups[0];
 
 
 
@@ -59,7 +60,7 @@ const MenuSection = ({ cart }) => {
         </div>
       </div>
 
-      <div role="tabpanel" id={`panel-${group.id}`} aria-labelledby={`tab-${group.id}`} tabIndex={-1}>
+      <div role="tabpanel" id={`panel-${active || 'all'}`} aria-labelledby={`tab-${active || 'all'}`} tabIndex={-1}>
 
         <div className="menu-grid">{shown.map((entry) => (<div key={entry.id} className="menu-group"><div className="menu-group-head"><h3>{entry.label}</h3><small>{entry.eyebrow}</small></div>
           {entry.items.map((item, index) => {
@@ -67,7 +68,6 @@ const MenuSection = ({ cart }) => {
             const qty = line?.qty || 0;
             return (
               <article className={qty ? 'dish-card in-cart' : 'dish-card'} key={item.id}>
-                <div className="dish-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
                 <div className="dish-main">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
@@ -77,7 +77,7 @@ const MenuSection = ({ cart }) => {
                 </div>
                 <div className="dish-order">
                   <strong>{money(item.price)} <small>JMD</small></strong>
-                  {item.options && (
+                  {qty > 0 && item.options && (
                     <div className="dish-options">
                       <select aria-label={`Pepper level for ${item.name}`} value={line?.pepper || ''} onChange={(event) => cart.setOptions(item.id, 'pepper', event.target.value)}>
                         <option value="">Pepper level</option>
