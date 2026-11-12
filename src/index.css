@@ -930,3 +930,10 @@ html, body { overflow-x: hidden; }
 #menu .dish-card button:last-of-type:active,
 #menu article button:last-of-type:active { background: #f5b800; color: #0a0a0a; }
 #menu .dish-card:has(button:last-of-type), #menu article:has(button:last-of-type) { border-color: rgba(245,184,0,.2); }
+/* court-grade */
+.visit-photo img { filter: saturate(1.06) contrast(1.04); }
+.hero-frame::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10,9,7,0) 55%, rgba(10,9,7,.55) 100%);
+  border-radius: inherit;
+}
