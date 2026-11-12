@@ -93,7 +93,7 @@ const MenuSection = ({ cart }) => {
                   <div className="stepper">
                     <button type="button" onClick={() => cart.bump(item.id, -1)} disabled={!qty} aria-label={`Remove one ${item.name}`}>−</button>
                     <output aria-live="polite">{qty}</output>
-                    <button type="button" onClick={() => cart.bump(item.id, 1)} aria-label={`Add one ${item.name}`}>+</button>
+                    <button type="button" onClick={() => cart.bump(item.id, 1)} aria-label={`Add one ${item.name}`}>Add</button>
                   </div>
                 </div>
               </article>

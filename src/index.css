@@ -1116,3 +1116,5 @@ html, body { overflow-x: hidden !important; }
 .board-preview img { display:block !important; width:100% !important; height:150px !important; object-fit:cover !important; object-position:center 35% !important; }
 .board-preview__label { position:absolute !important; inset:auto 0 0 0 !important; padding:10px 12px !important; font-size:11px !important; font-weight:800 !important; letter-spacing:.16em !important; text-transform:uppercase !important; color:#f5b800 !important; background:linear-gradient(to top, rgba(10,9,7,.94), rgba(10,9,7,0)) !important; }
 @media (min-width:768px) { .board-preview img { height:190px !important; } }
+.stepper button:last-child { width:auto !important; padding:0 14px !important; border-radius:999px !important; background:#f5b800 !important; color:#0a0a0a !important; font-size:12px !important; font-weight:800 !important; }
+.stepper button:last-child { width:auto !important; padding:0 14px !important; border-radius:999px !important; background:#f5b800 !important; color:#0a0a0a !important; font-size:12px !important; font-weight:800 !important; }
