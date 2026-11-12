@@ -72,12 +72,6 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="kinetic-ribbon" role="note">
-        <div className="kinetic-track">
-          <span>DOUBLES • BUSS UP SHUT • BAKE & SHARK • CORN SOUP • ALOO PIE • SAHEENA • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
-          <span aria-hidden="true">DOUBLES • BUSS UP SHUT • BAKE & SHARK • CORN SOUP • ALOO PIE • SAHEENA • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
-        </div>
-      </div>
     </section>
   );
 };
