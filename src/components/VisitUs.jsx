@@ -8,6 +8,7 @@ const toLabel = (mins) => {
 
 const VisitUs = () => (
   <section id="visit" className="visit-section">
+      <div className="visit-photo"><img src="/images/courtyard.jpg?v=1" width="1200" height="680" loading="lazy" decoding="async" alt="Dubwise Cafe courtyard stall" /></div>
     <div className="visit-card">
       <p className="eyebrow">Visit us at Dubwise Cafe</p>
       <h2>{site.street}</h2>

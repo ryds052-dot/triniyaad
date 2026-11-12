@@ -1085,3 +1085,13 @@ html, body { overflow-x: hidden !important; }
 .menu-tabs button { min-width:0 !important; flex:0 0 auto !important; border:1px solid rgba(255,255,255,.14) !important; border-radius:999px !important; padding:8px 14px !important; font-size:12px !important; }
 .menu-tabs button.active { border-color:#f5b800 !important; background:#f5b800 !important; color:#0a0a0a !important; }
 .menu-group-head { padding:18px 0 8px !important; }
+/* DESKTOP-RESTORE */
+@media (min-width: 768px) {
+  #root { max-width:none !important; margin:0 !important; padding-inline:0 !important; }
+  .visit-section { grid-template-columns:58% 42% !important; }
+  .dish-card { display:grid !important; grid-template-columns:70px 1fr 230px !important; padding:20px 0 !important; }
+  .menu-grid { display:block !important; }
+  .dish-index { display:block !important; }
+  .menu-tabs { position:static !important; }
+  .menu-tabs button { min-width:180px !important; border-radius:0 !important; border:0 !important; border-bottom:2px solid transparent !important; padding:12px 0 !important; }
+}
