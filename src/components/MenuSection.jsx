@@ -13,10 +13,10 @@ const MenuSection = ({ cart }) => {
   const [board, setBoard] = useState(false);
   const tabs = useRef(null);
 
-  const group = menuGroups.find((entry) => entry.id === active) || menuGroups[0];
-  const visible = filter === 'all'
-    ? menuGroups.flatMap((entry) => entry.items)
-    : group.items.filter((item) => item.tags.includes(filter));
+  const shown = active ? menuGroups.filter((e) => e.id === active) : menuGroups;
+
+
+
 
   const onTabKey = (event, index) => {
     if (!['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) return;
