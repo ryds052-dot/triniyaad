@@ -36,7 +36,7 @@ const App = () => {
         <Suspense fallback={<Fallback />}><MenuSection cart={cart} /></Suspense>
         <Suspense fallback={<Fallback />}><GuestLove /></Suspense>
         <Suspense fallback={<Fallback />}><CourtyardVibe /></Suspense>
-        <Suspense fallback={<Fallback />}><Gallery /></Suspense>
+        <Suspense fallback={<Fallback />}></Suspense>
         <Suspense fallback={<Fallback />}><Reserve /></Suspense>
         <Suspense fallback={<Fallback />}><VisitUs /></Suspense>
         <Suspense fallback={<Fallback />}><Footer /></Suspense>

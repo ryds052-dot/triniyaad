@@ -813,3 +813,24 @@ html{ scroll-behavior: smooth; }
   text-align: left !important;
 }
 .site-footer{ padding: var(--sect) var(--gutter) 48px !important; }
+
+/* ---------- no floating menu elements ---------- */
+.board-button,
+.menu-filters,
+.menu-toolbar-right{
+  position: static !important;
+  margin: 0 !important;
+  z-index: auto !important;
+  background: transparent !important;
+  align-self: auto !important;
+}
+.menu-toolbar{
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+@media (min-width: 901px){
+  .menu-toolbar{ flex-direction: row !important; align-items: center !important; justify-content: space-between !important; }
+}
+.menu-toolbar-right{ display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
