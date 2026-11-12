@@ -971,3 +971,12 @@ html, body { max-width: 100%; overflow-x: hidden; }
   #menu { padding-top: 22px !important; }
   #hero + section { margin-top: 0; }
 }
+/* hero-static-phone */
+@media (max-width: 767px) {
+  .hero-visual { position: relative !important; right: auto !important; bottom: auto !important; width: 100% !important; height: auto !important; opacity: 1 !important; display: block !important; margin: 18px 0 0 !important; }
+  .hero-frame { width: 100% !important; max-width: 100% !important; aspect-ratio: 4 / 5 !important; border-radius: 18px !important; margin: 0 auto !important; }
+  .hero-orbit { display: none !important; }
+  .hero-image, .hero-video { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  .hero-actions { width: 100% !important; }
+  .hero-actions a, .hero-actions button { width: 100% !important; margin: 0 !important; }
+}
