@@ -954,3 +954,9 @@ html, body { overflow-x: hidden; }
 @media (max-width: 767px) {
   .hero-frame, #hero [class*="aspect-[3/4]"] { aspect-ratio: 4 / 5 !important; }
 }
+/* menu-scale */
+#menu { overflow-x: clip; }
+#menu h3 { font-size: 20px !important; line-height: 1.2 !important; letter-spacing: -0.02em; }
+#menu p { font-size: 14px !important; line-height: 1.5 !important; }
+#menu .chip, #menu [class*="sauce"], #menu [class*="pepper"] { font-size: 12px !important; }
+#menu .menu-empty { font-size: 14px !important; }
