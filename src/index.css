@@ -1121,3 +1121,8 @@ html, body { overflow-x: hidden !important; }
 /* VIDEO-CENTER */
 .hero-video, .hero-image { object-position: 50% 50% !important; }
 .hero-video { transform: translateX(0) !important; left: 0 !important; right: 0 !important; margin-inline: auto !important; }
+/* TITLE-SEAMLESS */
+.hero-title { font-size:clamp(44px,12.5vw,62px) !important; line-height:.9 !important; letter-spacing:-.035em !important; margin:18px 0 14px !important; }
+.hero-title .line { display:block !important; }
+.hero-title .gold { margin-left:clamp(14px,4.5vw,30px) !important; }
+.hero-copy { font-size:15px !important; line-height:1.55 !important; max-width:32ch !important; color:rgba(255,255,255,.62) !important; }
