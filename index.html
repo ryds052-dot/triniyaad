@@ -54,5 +54,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <script>/*img-fallback*/document.addEventListener("error",function(e){var t=e.target;if(t.tagName==="IMG"&&!t.dataset.fb){t.dataset.fb=1;t.src="/images/photo-3.webp?v=3";}},true);</script></body>
 </html>

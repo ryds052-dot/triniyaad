@@ -8,7 +8,6 @@ const toLabel = (mins) => {
 
 const VisitUs = () => (
   <section id="visit" className="visit-section">
-    <div className="visit-photo"><img src="/images/courtyard.jpg?v=1" width="1200" height="680" loading="lazy" decoding="async" alt="Dubwise Cafe courtyard stall" /></div>
     <div className="visit-card">
       <p className="eyebrow">Visit us at Dubwise Cafe</p>
       <h2>{site.street}</h2>
@@ -28,13 +27,6 @@ const VisitUs = () => (
           })}
         </dl>
       </div>
-
-        <figure className="visit-board">
-          <a href="/images/board.jpg?v=1" target="_blank" rel="noopener">
-            <img src="/images/board.jpg?v=1" width="1600" height="1200" loading="lazy" decoding="async" alt="Hand-painted Trini-Yaad menu board outside the Dubwise courtyard" />
-          </a>
-          <figcaption>The board, hand-painted outside the courtyard.</figcaption>
-        </figure>
         <div className="visit-order">
         <b>How to order</b>
         <p><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp / call {site.phoneDisplay}</a></p>
