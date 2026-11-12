@@ -23,9 +23,9 @@ export const menuGroups = [
     'Chickpeas, served with tamarind chutney and cucumbers over two fried flatbreads.',
     [
       { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', options: true },
+      { id: 'dbl-goat', name: 'Doubles — w/ Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
       { id: 'dbl-chicken', name: 'Doubles — w/ Curry Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
       { id: 'dbl-jerk', name: 'Jerk Chicken Doubles', price: 1200, tags: [], description: 'Jerk chicken over two fried flatbreads with pineapple chutney.', options: true },
-      { id: 'dbl-goat', name: 'Doubles — w/ Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
     ]
   ),
   group(
@@ -54,7 +54,7 @@ export const menuGroups = [
     [
       { id: 'corn-soup', name: 'Corn Soup', price: 500, tags: ['vegan'], description: 'Hearty soup filled with corn and vegetables.' },
       { id: 'aloo-pies', name: 'Aloo Pie', price: 500, tags: ['vegan'], description: 'Curried chickpeas with seasoned mash potatoes and tamarind chutney.' },
-      { id: 'saheena', name: 'Saheena', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.' },
+      { id: 'saheena', name: 'Saheena Callaloo Fritter', price: 500, tags: ['vegan'], description: 'Callaloo fritter, fried and served with tamarind chutney.' },
     ]
   ),
 ];
