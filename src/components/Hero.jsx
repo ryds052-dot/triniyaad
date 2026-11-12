@@ -65,15 +65,15 @@ const Hero = () => {
           <div className="hero-orbit" aria-hidden="true"><span>TRINI</span><span>YAAD</span></div>
           <div className="hero-frame">
             <img className="hero-image" src="/images/photo-3.webp?v=3" width="520" height="684" fetchPriority="high" decoding="async" alt="Authentic Trini doubles with channa, cucumber and Shado Beni" />
-            <video className="hero-video" src="/hero-vibe.mp4?v=2" poster="/images/photo-3.webp?v=3" autoPlay muted loop playsInline preload="metadata" aria-label="Trini-Yaad courtyard atmosphere" />
+            <video className="hero-video" src="/hero-vibe.mp4?v=2" poster="/images/photo-3.webp?v=3" autoPlay muted loop playsInline preload="metadata" aria-label="Trini-Yaad courtyard atmosphere" onCanPlay={(e) => e.currentTarget.classList.add("is-ready")}> e.currentTarget.classList.add("is-ready")}> e.currentTarget.classList.add("is-ready")} src="/hero-vibe.mp4?v=2" poster="/images/photo-3.webp?v=3" autoPlay muted loop playsInline preload="metadata" aria-label="Trini-Yaad courtyard atmosphere" />
             <span className="hero-image-vignette" aria-hidden="true" />
           </div>
         </div>
       </div>
       <div className="kinetic-ribbon" role="note">
         <div className="kinetic-track">
-          <span>DOUBLES • BUSS UP SHUT • BAKE &amp; SHRIMP • SLAW DEM FRY DEM • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
-          <span aria-hidden="true">DOUBLES • BUSS UP SHUT • BAKE &amp; SHRIMP • SLAW DEM FRY DEM • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
+          <span>DOUBLES • BUSS UP SHUT • BAKE & SHARK • CORN SOUP • ALOO PIE • SAHEENA • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
+          <span aria-hidden="true">DOUBLES • BUSS UP SHUT • BAKE & SHARK • CORN SOUP • ALOO PIE • SAHEENA • SHADO BENI SAUCE • DUBWISE REGGAE COURTYARD • 82 LADY MUSGRAVE RD • </span>
         </div>
       </div>
     </section>
