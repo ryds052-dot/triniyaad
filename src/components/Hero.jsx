@@ -42,8 +42,8 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="hero-video"
-          src="/images/"
-          poster="/images/"
+          src="/hero-vibe.mp4"
+          poster="/images/courtyard.jpg"
           muted
           loop
           playsInline
