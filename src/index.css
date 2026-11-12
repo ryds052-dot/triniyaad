@@ -886,3 +886,10 @@ html{ scroll-behavior: smooth; }
   #hero a[href="#menu"] { width: auto; margin: 14px 14px 0; }
   #menu { padding-top: 26px; }
 }
+/* hero-fit */
+.hero-frame { position: relative; overflow: hidden; }
+.hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.hero-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (max-width: 767px) {
+  .hero-video, .hero-image { position: absolute; inset: 0; }
+}
