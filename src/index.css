@@ -893,3 +893,14 @@ html{ scroll-behavior: smooth; }
 @media (max-width: 767px) {
   .hero-video, .hero-image { position: absolute; inset: 0; }
 }
+/* hero-video-on */
+.hero-frame .hero-video {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 112%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-frame .hero-image { position: absolute; inset: 0; }
