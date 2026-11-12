@@ -513,3 +513,8 @@ p { text-wrap: pretty; }
 }
 .footer-meta{ position:static !important; left:auto !important; right:auto !important; bottom:auto !important; margin-top:28px; text-align:left !important; }
 .site-footer{ padding-bottom:64px; }
+
+/* video must never be gated on a JS class */
+.hero-video{ opacity: 1 !important; }
+.hero-video.is-ready{ opacity: 1 !important; }
+.mobile-menu-board-card{ display: none !important; }
