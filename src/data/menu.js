@@ -23,8 +23,8 @@ export const menuGroups = [
     'Chickpeas, served with tamarind chutney and cucumbers over two fried flatbreads.',
     [
       { id: 'dbl-vegan', name: 'Doubles', price: 500, tags: ['vegan'], description: 'Chickpeas, tamarind chutney and cucumbers over two fried flatbreads.', options: true },
-      { id: 'dbl-goat', name: 'w/ Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
-      { id: 'dbl-chicken', name: 'w/ Curry Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
+      { id: 'dbl-goat', name: 'Curry Goat', price: 1500, tags: [], description: 'Curried goat over two fried flatbreads.', options: true },
+      { id: 'dbl-chicken', name: 'Curry Chicken', price: 1000, tags: [], description: 'Curried or stew chicken.', options: true },
       { id: 'dbl-jerk', name: 'Jerk Chicken', price: 1200, tags: [], description: 'Jerk chicken over two fried flatbreads with pineapple chutney.', options: true },
     ]
   ),
@@ -34,8 +34,8 @@ export const menuGroups = [
     'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.',
     [
       { id: 'bus-vegan', name: 'Veggie', price: 1500, tags: ['vegan'], description: 'Silky roti with mixed vegetables, pumpkin talkari, curried chickpeas and house chutney.', options: true },
-      { id: 'bus-chicken', name: 'w/ Chicken', price: 2000, tags: [], description: 'Curried or stew chicken.', options: true },
-      { id: 'bus-goat', name: 'w/ Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
+      { id: 'bus-chicken', name: 'Chicken', price: 2000, tags: [], description: 'Curried or stew chicken.', options: true },
+      { id: 'bus-goat', name: 'Goat', price: 2500, tags: [], description: 'With curried goat.', options: true },
     ]
   ),
   group(

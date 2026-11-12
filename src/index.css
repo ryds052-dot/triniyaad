@@ -920,3 +920,13 @@ html, body { overflow-x: hidden; }
   #menu h3 { font-size: 19px; line-height: 1.15; letter-spacing: -0.025em; }
   #menu p { font-size: 13.5px; line-height: 1.45; }
 }
+/* stepper-strong */
+#menu .dish-card button:last-of-type,
+#menu article button:last-of-type {
+  width: 34px; height: 34px; border-radius: 999px;
+  border: 1px solid rgba(245,184,0,.4); color: #f5b800; font-size: 18px; font-weight: 700;
+  display: grid; place-items: center; background: rgba(245,184,0,.08);
+}
+#menu .dish-card button:last-of-type:active,
+#menu article button:last-of-type:active { background: #f5b800; color: #0a0a0a; }
+#menu .dish-card:has(button:last-of-type), #menu article:has(button:last-of-type) { border-color: rgba(245,184,0,.2); }

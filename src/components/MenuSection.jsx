@@ -15,7 +15,7 @@ const MenuSection = ({ cart }) => {
 
   const group = menuGroups.find((entry) => entry.id === active) || menuGroups[0];
   const visible = filter === 'all'
-    ? group.items
+    ? menuGroups.flatMap((entry) => entry.items)
     : group.items.filter((item) => item.tags.includes(filter));
 
   const onTabKey = (event, index) => {
@@ -35,13 +35,6 @@ const MenuSection = ({ cart }) => {
         <p className="eyebrow">The Food Line</p>
         <h2>Choose your <em>island mood.</em></h2>
       </div>
-
-      <button className="mobile-menu-board-card" type="button" onClick={() => setBoard(true)} aria-label="Open the full menu board">
-        <img src="/images/board.jpg?v=1" width="1400" height="1000" loading="lazy" decoding="async" alt="" />
-        <span className="mobile-menu-board-shade" aria-hidden="true" />
-        <span className="mobile-menu-board-copy"><small>FULL MENU</small><strong>View the complete board</strong></span>
-        <span className="mobile-menu-board-arrow" aria-hidden="true">↗</span>
-      </button>
 
       <div className="menu-toolbar">
         <div className="menu-tabs" role="tablist" aria-label="Menu categories" ref={tabs}>
