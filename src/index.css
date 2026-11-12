@@ -1118,3 +1118,6 @@ html, body { overflow-x: hidden !important; }
 @media (min-width:768px) { .board-preview img { height:190px !important; } }
 .stepper button:last-child { width:auto !important; padding:0 14px !important; border-radius:999px !important; background:#f5b800 !important; color:#0a0a0a !important; font-size:12px !important; font-weight:800 !important; }
 .stepper button:last-child { width:auto !important; padding:0 14px !important; border-radius:999px !important; background:#f5b800 !important; color:#0a0a0a !important; font-size:12px !important; font-weight:800 !important; }
+/* VIDEO-CENTER */
+.hero-video, .hero-image { object-position: 50% 50% !important; }
+.hero-video { transform: translateX(0) !important; left: 0 !important; right: 0 !important; margin-inline: auto !important; }
