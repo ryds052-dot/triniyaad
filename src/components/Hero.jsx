@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
+import { useOpenStatus } from "../hooks/useOpenStatus";
 
 export default function Hero() {
+  const { open, text } = useOpenStatus();
   const videoRef = useRef(null);
-  const sectionRef = useRef(null);
 
   useEffect(() => {
     const v = videoRef.current;
@@ -20,8 +21,8 @@ export default function Hero() {
     <section className="hero-v2" id="top">
       <div className="hero-v2-copy">
         <span className="hero-v2-pill">
-          <span className="hero-v2-dot" />
-          Open now · 82 Lady Musgrave Rd
+          <span className={"hero-v2-dot" + (open ? " is-open" : "")} />
+          {text || "82 Lady Musgrave Rd"}
         </span>
 
         <h1 className="hero-v2-title">

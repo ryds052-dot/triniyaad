@@ -834,3 +834,9 @@ html{ scroll-behavior: smooth; }
   .menu-toolbar{ flex-direction: row !important; align-items: center !important; justify-content: space-between !important; }
 }
 .menu-toolbar-right{ display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+
+html, body { overflow-x: clip; max-width: 100%; }
+* { min-width: 0; }
+
+.hero-v2-dot { opacity: .35; }
+.hero-v2-dot.is-open { opacity: 1; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.18); }
